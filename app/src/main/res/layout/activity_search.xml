@@ -31,7 +31,7 @@
         app:boxStrokeWidth="1.5dp"
         app:boxStrokeWidthFocused="3dp"
         app:counterEnabled="true"
-        app:counterMinLength="3"
+        app:counterMaxLength="3"
         app:endIconMode="clear_text"
         app:helperText="@string/min_3_caracters"
         app:helperTextEnabled="true"
