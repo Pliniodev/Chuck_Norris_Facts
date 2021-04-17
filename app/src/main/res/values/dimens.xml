@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_recyclerview_16dp">16dp</dimen>
+
+    <dimen name="bigtext_recyclerview_28sp">28sp</dimen>
+    <dimen name="smalltext_recyclerview_18sp">18sp</dimen>
+
+
+
+</resources>
