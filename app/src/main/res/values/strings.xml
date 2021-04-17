@@ -4,4 +4,8 @@
     <string name="fact">Fact</string>
     <string name="Search">search</string>
     <string name="min_3_caracters">Min. 3 caracters</string>
+    <string name="no_network_connectivity">
+        Connection lost, please check your connection with the internet!
+    </string>
+    <string name="BASE_URL">https://api.chucknorris.io/</string>
 </resources>
