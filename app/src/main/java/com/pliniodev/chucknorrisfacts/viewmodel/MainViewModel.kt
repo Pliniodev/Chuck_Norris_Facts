@@ -1,5 +1,6 @@
 package com.pliniodev.chucknorrisfacts.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,20 +14,22 @@ class MainViewModel(
     private val repository: ChuckNorrisRepository
     ): ViewModel() {
 
-    private val query = "food"//temporário
+    private val mSearchResult = MutableLiveData<FactsResultModel?>()
+    val searchResult : LiveData<FactsResultModel?> = mSearchResult
 
-    val searchResult = MutableLiveData<FactsResultModel>()
-    val showError = SingleLiveEvent<String?>()
+     val showError = SingleLiveEvent<String?>()
 
-    fun getFreeSearch() {
+
+    fun getFreeSearch(query: String) {
         //viewModelScope só é executado quando o viewModel está ativo
         viewModelScope.launch {
 
             when (val result =  repository.getFreeQuery(query)) {
                 is AppResult.Success -> {
-                    searchResult.value = result.successData!!
+                    mSearchResult.value = result.successData
                     showError.value = null
                 }
+
                 is AppResult.Error -> showError.value = result.exception.message
             }
         }
