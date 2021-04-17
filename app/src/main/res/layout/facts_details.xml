@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp">
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/shape_item_recycler">
 
     <TextView
         android:id="@+id/text_value"
@@ -15,7 +16,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/fact"
         android:textColor="@color/black"
-        android:textSize="32sp"
+        android:textSize="@dimen/bigtext_recyclerview_28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -42,6 +43,7 @@
         />
 
     <ImageView
+        android:id="@+id/image_share"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="16dp"
