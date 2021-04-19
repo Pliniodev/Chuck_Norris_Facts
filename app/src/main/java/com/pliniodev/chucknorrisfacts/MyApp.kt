@@ -7,7 +7,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
-class MyApp: Application() {
+class MyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -26,8 +26,7 @@ class MyApp: Application() {
                 mainModule,
                 searchModule,
                 networkModule,
-                repositoryModule,
-                apiModule
+                repositoryModule
             )
         }
     }
