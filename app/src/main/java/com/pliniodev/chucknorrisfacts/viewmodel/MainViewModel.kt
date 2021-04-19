@@ -1,36 +1,42 @@
 package com.pliniodev.chucknorrisfacts.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pliniodev.chucknorrisfacts.service.model.FactsResultModel
+import com.pliniodev.chucknorrisfacts.service.model.Fact
 import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepository
-import com.pliniodev.chucknorrisfacts.service.utils.AppResult
+import com.pliniodev.chucknorrisfacts.service.utils.FactsResult
 import com.pliniodev.chucknorrisfacts.service.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val repository: ChuckNorrisRepository
-    ): ViewModel() {
+) : ViewModel() {
 
-    private val mSearchResult = MutableLiveData<FactsResultModel?>()
-    val searchResult : LiveData<FactsResultModel?> = mSearchResult
+    val searchResultLiveData = MutableLiveData<List<Fact>>()
 
-     val showError = SingleLiveEvent<String?>()
+    val showError = SingleLiveEvent<String?>()
 
-
-    fun getFreeSearch(query: String) {
-        //viewModelScope só é executado quando o viewModel está ativo
+    fun getFactsFromFreeSearch(query: String) {
         viewModelScope.launch {
-
-            when (val result =  repository.getFreeQuery(query)) {
-                is AppResult.Success -> {
-                    mSearchResult.value = result.successData
-                    showError.value = null
+            repository.getFact(query) { result: FactsResult ->
+                when (result) {
+                    is FactsResult.Success -> {
+                        searchResultLiveData.value = result.successData
+                        showError.value = null
+                    }
+                    is FactsResult.Error -> {
+                        if (result.statusCode == 404) {
+                            showError.value = "erro 404"
+                        }
+                    }
+                    is FactsResult.ServerError -> {
+                        showError.value = "erro 500"
+                    }
+                    is FactsResult.ConnectionError -> {
+                        showError.value = "Conection Lost"
+                    }
                 }
-
-                is AppResult.Error -> showError.value = result.exception.message
             }
         }
     }
