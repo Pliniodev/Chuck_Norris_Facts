@@ -1,5 +1,5 @@
 package com.pliniodev.chucknorrisfacts.view.listener
 
 interface FactsListener {
-    fun onClick(url: String)
+    fun onClickShareImage(url: String)
 }

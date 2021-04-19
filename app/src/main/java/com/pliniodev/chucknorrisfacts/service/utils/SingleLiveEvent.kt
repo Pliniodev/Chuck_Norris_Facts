@@ -10,17 +10,25 @@ import java.util.concurrent.atomic.AtomicBoolean
 /**
  * lifecycle-aware observable, chama o observable somente quando for feita
  * uma chamada explícita para call() ou setValue()
+ *
+ * Classe utilizada para:
+ *  - Recuperar através do mPending se houve mensagem de erro. Se houver retorna true...
+ *  - Retorna msgs de erro da classe AppResult
  */
 
 class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     private val mPending = AtomicBoolean(false)
 
-    //anotação para indicar que este método só pode ser chamado na MainThread
+    //Só pode ser executado na MainThread
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         if (hasActiveObservers()) {
-            Log.w(TAG, "SingleLiveEvent")
+            Log.w(
+                TAG,
+                "true ONLY if there is at least one observer whose lifecycle state" +
+                        " is STARTED or RESUMED"
+            )
         }
 
         super.observe(owner, Observer { t ->

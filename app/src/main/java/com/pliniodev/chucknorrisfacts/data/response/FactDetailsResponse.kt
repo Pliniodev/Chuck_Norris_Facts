@@ -1,8 +1,9 @@
-package com.pliniodev.chucknorrisfacts.service.model
+package com.pliniodev.chucknorrisfacts.data.response
 
 import com.google.gson.annotations.SerializedName
+import com.pliniodev.chucknorrisfacts.service.model.Fact
 
-data class FactModel (
+data class FactDetailsResponse(
 
     @SerializedName("categories")
     val categories: ArrayList<String>,
@@ -25,19 +26,13 @@ data class FactModel (
     @SerializedName("value")
     val value: String,
 ) {
-    val isLongText: Boolean
-        get() {
-            if (value.count() > 80) {
-                return true
-            }
-            return false
-        }
-
-    val getCategory: String
-        get(){
-            if (categories.isEmpty()) {
-                return "UNCATEGORIZED"
-            }
-            return categories.toString().replace("[\\[\\]]".toRegex(), "")
-        }
+    fun getFactModel() = Fact(
+        categories = this.categories,
+        created_at = this.created_at,
+        icon_url = this.icon_url,
+        id = this.id,
+        updated_at = this.updated_at,
+        url = this.url,
+        value = this.value
+    )
 }

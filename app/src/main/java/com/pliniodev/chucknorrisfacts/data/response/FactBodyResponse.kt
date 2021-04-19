@@ -1,11 +1,11 @@
-package com.pliniodev.chucknorrisfacts.service.model
+package com.pliniodev.chucknorrisfacts.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class FactsResultModel (
+data class FactBodyResponse(
     @SerializedName("total")
     val total: Int,
 
     @SerializedName("result")
-    val result: List<FactModel>
+    val result: List<FactDetailsResponse>
 )

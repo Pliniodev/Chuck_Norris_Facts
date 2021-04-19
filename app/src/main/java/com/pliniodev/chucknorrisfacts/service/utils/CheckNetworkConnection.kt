@@ -3,8 +3,6 @@ package com.pliniodev.chucknorrisfacts.service.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
-import android.os.Build
 import com.pliniodev.chucknorrisfacts.R
 
 object CheckNetworkConnection {
@@ -40,13 +38,11 @@ object CheckNetworkConnection {
 //            }
 //        }
 
-
-
         return result
     }
 
-    fun Context.noNetworkConnectivityError(): AppResult.Error {
-        return AppResult.Error(Exception(this.resources.getString(R.string.no_network_connectivity)))
+    fun noNetworkConnectivityError(context: Context): FactsResult.ConnectionError {
+        return FactsResult.ConnectionError(context.resources.getString(R.string.no_network_connectivity))
     }
 
 }
