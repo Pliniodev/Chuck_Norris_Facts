@@ -59,6 +59,10 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.19.0'
 
+    //tests with coroutines
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
+    testImplementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-test', version: '1.4.3'
+
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
