@@ -3,7 +3,7 @@ package com.pliniodev.chucknorrisfacts.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
-import com.pliniodev.chucknorrisfacts.data.response.FactDetailsResponse
+import com.pliniodev.chucknorrisfacts.R
 import com.pliniodev.chucknorrisfacts.service.model.Fact
 import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepository
 import com.pliniodev.chucknorrisfacts.service.utils.FactsResult
@@ -28,7 +28,7 @@ class MainViewModelTest {
     private lateinit var searchResultLiveDataObserver: Observer<List<Fact>>
 
     @Mock
-    private lateinit var showErrorObserver: Observer<String?>
+    private lateinit var viewFlipperLiveDataObserver: Observer<Pair<Int, Int?>>
 
     private lateinit var viewModel: MainViewModel
 
@@ -52,42 +52,74 @@ class MainViewModelTest {
         val resultSuccess = MockRepository(FactsResult.Success(facts))
         viewModel = MainViewModel(resultSuccess)
         viewModel.searchResultLiveData.observeForever(searchResultLiveDataObserver)
+        viewModel.viewFlipperLiveData.observeForever(viewFlipperLiveDataObserver)
 
         //act
         viewModel.getFactsFromFreeSearch(query = "food")
 
         //Assert
         verify(searchResultLiveDataObserver).onChanged(facts)
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(1, null))
     }
 
     @ExperimentalCoroutinesApi
     @Test
-    fun `Must set showError, when viewModel searchResult get Error`() {
+    fun `Must set viewFlipperLiveData, when viewModel searchResult get error 404`() {
 
-        val mockRepository = MockRepository(FactsResult.Error(404))
+        val mockRepository = MockRepository(FactsResult.ApiError(404))
         viewModel = MainViewModel(mockRepository)
-        viewModel.showError.observeForever(showErrorObserver)
+        viewModel.viewFlipperLiveData.observeForever(viewFlipperLiveDataObserver)
 
 
         viewModel.getFactsFromFreeSearch(query = "fo")
 
 
-        verify(showErrorObserver).onChanged("erro 404")
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(2, R.string.facts_error_404))
     }
 
     @ExperimentalCoroutinesApi
     @Test
-    fun `Must set showError, when viewModel searchResult get ServerError`() {
+    fun `Must set viewFlipperLiveData, when viewModel searchResult get error 400`() {
+
+        val mockRepository = MockRepository(FactsResult.ApiError(400))
+        viewModel = MainViewModel(mockRepository)
+        viewModel.viewFlipperLiveData.observeForever(viewFlipperLiveDataObserver)
+
+
+        viewModel.getFactsFromFreeSearch(query = "fo")
+
+
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(2, R.string.facts_error_400))
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `Must set viewFlipperLiveData, when viewModel searchResult get error 500`() {
+
+        val mockRepository = MockRepository(FactsResult.ApiError(500))
+        viewModel = MainViewModel(mockRepository)
+        viewModel.viewFlipperLiveData.observeForever(viewFlipperLiveDataObserver)
+
+
+        viewModel.getFactsFromFreeSearch(query = "fo")
+
+
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(2, R.string.facts_error_500))
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `Must set viewFlipperLiveData, when viewModel searchResult get ServerError`() {
 
         val mockRepository = MockRepository(FactsResult.ServerError)
         viewModel = MainViewModel(mockRepository)
-        viewModel.showError.observeForever(showErrorObserver)
+        viewModel.viewFlipperLiveData.observeForever(viewFlipperLiveDataObserver)
 
 
         viewModel.getFactsFromFreeSearch(query = "fo")
 
 
-        verify(showErrorObserver).onChanged("erro 500")
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(2, R.string.facts_error_server_error))
     }
 }
 
