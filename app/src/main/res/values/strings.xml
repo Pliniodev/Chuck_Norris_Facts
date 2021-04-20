@@ -16,4 +16,5 @@
     <string name="facts_error_lost_connection">Connection Lost! Please check your connection!</string>
     <string name="Preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
         do eiusmod tempor incididunt</string>
+    <string name="search">Search</string>
 </resources>

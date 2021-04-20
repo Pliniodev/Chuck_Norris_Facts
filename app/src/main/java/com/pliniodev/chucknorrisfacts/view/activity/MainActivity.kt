@@ -1,7 +1,11 @@
 package com.pliniodev.chucknorrisfacts.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +37,26 @@ class MainActivity : AppCompatActivity(), FactsListener{
 
         //Só poderá ser chamado na pesquisa
         mViewModel.getFactsFromFreeSearch(query)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_search,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_search -> {
+                navigateToSearch()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun navigateToSearch(){
+        startActivity(Intent(this, SearchActivity::class.java))
     }
 
     private fun observe(){
