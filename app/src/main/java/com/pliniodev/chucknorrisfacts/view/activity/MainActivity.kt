@@ -29,11 +29,10 @@ class MainActivity : AppCompatActivity(), FactsListener{
         setView()
         observe()
 
-        var query = "food"//temporario
+        var query = "food"//temporario - string menor q 3 caracteres ou maior que 20 retorna 500
 
         //Só poderá ser chamado na pesquisa
         mViewModel.getFactsFromFreeSearch(query)
-
     }
 
     private fun observe(){
@@ -43,9 +42,14 @@ class MainActivity : AppCompatActivity(), FactsListener{
             }
         })
 
-        mViewModel.showError.observe(this, Observer {
-            Toast.makeText(this, "ERRO: $it", Toast.LENGTH_LONG).show()
-            //todo tratamento de erros
+        mViewModel.viewFlipperLiveData.observe(this, Observer {
+            it?.let { viewFlipper ->
+                binding.viewFlipperFacts.displayedChild = viewFlipper.first
+
+                viewFlipper.second?.let { errorMessageResId ->
+                    binding.textViewError.text = getString(errorMessageResId)
+                }
+            }
         })
     }
 
