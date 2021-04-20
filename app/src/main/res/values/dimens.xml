@@ -4,7 +4,8 @@
 
     <dimen name="bigtext_recyclerview_28sp">28sp</dimen>
     <dimen name="smalltext_recyclerview_18sp">18sp</dimen>
-
+    <dimen name="error_text_20sp">20sp</dimen>
+    <dimen name="padding_layoutinflipper_16dp">16dp</dimen>
 
 
 </resources>

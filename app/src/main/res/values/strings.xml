@@ -9,5 +9,11 @@
     <string name="BASE_URL">https://api.chucknorris.io/</string>
 
     <!--Errors-->
-    <string name="no_network_connectivity">Connection lost!</string>
+    <string name="facts_error_400">Invalid search! \nSize of search must be between 3 and 120</string>
+    <string name="facts_error_404">Have no jokes for this search! \n C\'mon Try again!</string>
+    <string name="facts_error_500">Invalid search! \nSize of search must be between 3 and 120</string>
+    <string name="facts_error_server_error">Server is crazy. \nTry again in some minutes.</string>
+    <string name="facts_error_lost_connection">Connection Lost! Please check your connection!</string>
+    <string name="Preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+        do eiusmod tempor incididunt</string>
 </resources>
