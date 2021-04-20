@@ -3,7 +3,7 @@
     <string name="category">Category</string>
     <string name="fact">Fact</string>
     <string name="Search">Search</string>
-    <string name="min_3_caracters">Min. 3 caracters</string>
+    <string name="min_search_characters">Min. 3 caracters</string>
 
     <!--Retrofit-->
     <string name="BASE_URL">https://api.chucknorris.io/</string>
@@ -14,7 +14,13 @@
     <string name="facts_error_500">Invalid search! \nSize of search must be between 3 and 120</string>
     <string name="facts_error_server_error">Server is crazy. \nTry again in some minutes.</string>
     <string name="facts_error_lost_connection">Connection Lost! Please check your connection!</string>
+    <string name="search">Search</string>
+    <string name="search_a_fact_about_chuck_norris">Search a fact about Chuck Norris</string>
+    <string name="you_need_search">You need to search something!</string>
+    <string name="yeah_its_a_search">Yeah! Its a search.</string>
+    <string name="max_search_characters">Max.120 characters</string>
     <string name="Preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
         do eiusmod tempor incididunt</string>
-    <string name="search">Search</string>
+    <string name="do_the_search">C\'mon search something!</string>
+
 </resources>
