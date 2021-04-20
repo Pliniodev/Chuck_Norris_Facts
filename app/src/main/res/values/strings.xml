@@ -22,5 +22,7 @@
     <string name="Preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
         do eiusmod tempor incididunt</string>
     <string name="do_the_search">C\'mon search something!</string>
+    <string name="no_symbols">No symbols, just letter or numbers ok?</string>
+    <string name="hello_help_text">Hey! Welcome! \nDo a search, and see the magic happens!</string>
 
 </resources>
