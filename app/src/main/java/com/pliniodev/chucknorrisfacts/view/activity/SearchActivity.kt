@@ -1,10 +1,10 @@
 package com.pliniodev.chucknorrisfacts.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.pliniodev.chucknorrisfacts.R
@@ -30,23 +30,24 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun validateSearch() {
         binding.editSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {
-                if (s.isEmpty()){
-                    mViewModel.validate(0)
+            override fun afterTextChanged(search: Editable) {
+                if (search.isEmpty()) {
+                    mViewModel.validate(search.toString())
                 }
             }
+
             override fun beforeTextChanged(
-                s: CharSequence, start: Int,
+                search: CharSequence, start: Int,
                 count: Int, after: Int
             ) {
-                mViewModel.validate(s.length)
+                mViewModel.validate(search.toString())
             }
 
             override fun onTextChanged(
-                s: CharSequence, start: Int,
+                search: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-                mViewModel.validate(s.length)
+                mViewModel.validate(search.toString())
             }
         })
     }
@@ -74,7 +75,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         if (searchChecker) {
             binding.buttonSearch.isEnabled = searchChecker
             binding.buttonSearch.setBackgroundColor(this.getColor(R.color.blue_background));
-        }else{
+        } else {
             binding.buttonSearch.isEnabled = searchChecker
             binding.buttonSearch.setBackgroundColor(this.getColor(R.color.button_unabled));
         }
@@ -82,9 +83,21 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         if (view.id == binding.buttonSearch.id) {
-            //todo
-            Toast.makeText(this, "Borãosikndoa", Toast.LENGTH_LONG).show()
+            val search = binding.editSearch.text.toString()
+
+            navigateToMain(cleanSearch(search))
         }
+    }
+
+    private fun navigateToMain(search: String) {
+        val intent = Intent(this, MainActivity::class.java)
+            .putExtra("searchText", search)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun cleanSearch(search: String): String {
+        return search.filter { it.isLetterOrDigit() }
     }
 
 }
