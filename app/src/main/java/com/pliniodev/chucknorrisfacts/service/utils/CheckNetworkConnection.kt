@@ -41,8 +41,8 @@ object CheckNetworkConnection {
         return result
     }
 
-    fun noNetworkConnectivityError(context: Context): FactsResult.ConnectionError {
-        return FactsResult.ConnectionError(context.resources.getString(R.string.no_network_connectivity))
+    fun noNetworkConnectivityError(): FactsResult.ConnectionError {
+        return FactsResult.ConnectionError
     }
 
 }
