@@ -32,11 +32,16 @@ class MainActivity : AppCompatActivity(), FactsListener{
 
         setView()
         observe()
+        binding.viewFlipperFacts.displayedChild = VIEW_HELLO_HELP
+    }
 
-        var query = "food"//temporario - string menor q 3 caracteres ou maior que 20 retorna 500
-
-        //Só poderá ser chamado na pesquisa
-        mViewModel.getFactsFromFreeSearch(query)
+    override fun onResume() {
+        super.onResume()
+        val message = intent.getStringExtra("searchText")
+        if (message != null) {
+            mViewModel.getFactsFromFreeSearch(message)
+            binding.viewFlipperFacts.displayedChild = MY_PROGRESSBAR
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -57,6 +62,7 @@ class MainActivity : AppCompatActivity(), FactsListener{
 
     private fun navigateToSearch(){
         startActivity(Intent(this, SearchActivity::class.java))
+        finish()
     }
 
     private fun observe(){
@@ -88,5 +94,10 @@ class MainActivity : AppCompatActivity(), FactsListener{
     override fun onClickShareImage(url: String) {
         Toast.makeText(this, "URL $url", Toast.LENGTH_LONG).show()
         //todo compartilhamento
+    }
+
+    companion object {
+        private const val VIEW_HELLO_HELP = 0
+        private const val MY_PROGRESSBAR = 1
     }
 }
