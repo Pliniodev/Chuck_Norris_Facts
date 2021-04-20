@@ -15,8 +15,6 @@ class MainViewModel(
 
     val searchResultLiveData = MutableLiveData<List<Fact>>()
 
-//    val showError = SingleLiveEvent<String?>()
-
     val viewFlipperLiveData: MutableLiveData<Pair<Int, Int?>> = MutableLiveData()
 
     fun getFactsFromFreeSearch(query: String) {
