@@ -30,14 +30,14 @@ class ChuckNorrisRepositoryImpl(
                     resultCallback(FactsResult.Success(factDetailsResponse))
 
                 } else {
-                    resultCallback(FactsResult.Error(response.code()))
+                    resultCallback(FactsResult.ApiError(response.code()))
                 }
 
             } catch (e: Exception) {
                 resultCallback(FactsResult.ServerError)
             }
         } else {
-            noNetworkConnectivityError(context)
+            resultCallback(noNetworkConnectivityError())
         }
     }
 }
