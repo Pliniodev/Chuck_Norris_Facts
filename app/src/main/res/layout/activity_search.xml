@@ -8,32 +8,50 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/shape_accent_background"
-        android:padding="8dp"
-        android:text="Search a fact about Chuck Norris"
+        android:background="@color/blue_background"
+        android:padding="30dp"
+        android:text="@string/search_a_fact_about_chuck_norris"
         android:textAlignment="center"
         android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/button_unabled"
+        android:enabled="false"
+        android:padding="16dp"
+        android:text="@string/Search"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_search" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_search"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        app:boxStrokeColor="@color/blue_background"
         app:boxStrokeWidth="1.5dp"
         app:boxStrokeWidthFocused="3dp"
         app:counterEnabled="true"
-        app:counterMaxLength="3"
+        app:counterMaxLength="120"
         app:endIconMode="clear_text"
-        app:helperText="@string/min_3_caracters"
+        app:errorEnabled="true"
         app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +64,5 @@
             android:hint="@string/Search"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
