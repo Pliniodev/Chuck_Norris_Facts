@@ -2,7 +2,8 @@
 Consumo de Api com Retrofit, Injeção de dependências com Koin e chamadas assíncronas com Coroutine.
 
 **Projeto**
-[Clique aqui e Veja o projeto em andamento] (https://github.com/Pliniodev/Chuck_Norris_Facts/projects/2)
+
+[Clique aqui e Veja o projeto em andamento](https://github.com/Pliniodev/Chuck_Norris_Facts/projects/2)
 
 **Tecnologias aplicadas**
 
