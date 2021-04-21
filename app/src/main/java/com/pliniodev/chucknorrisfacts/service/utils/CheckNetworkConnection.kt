@@ -7,10 +7,8 @@ import com.pliniodev.chucknorrisfacts.R
 
 object CheckNetworkConnection {
     /**
-     * Método para checagem de conexão com a internet
-     * caso a versão minima do app seja a MARSHMALOW (SDK23) ou anterior
-     * é preciso fazer a checagem da versão.
-     * Este projeto foi inicialmente setado para a versão OREO (SDK26)
+     * If minimum SDK version is MARSHMALOW or last
+     * Do a check version
      */
 
     fun isOnline(context: Context): Boolean {

@@ -24,7 +24,6 @@ object Validator {
                 } else {
                     Pair(false, null)
                 }
-
             }
         }
     }
