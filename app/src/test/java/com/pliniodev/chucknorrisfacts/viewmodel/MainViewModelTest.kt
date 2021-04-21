@@ -9,7 +9,8 @@ import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepository
 import com.pliniodev.chucknorrisfacts.service.utils.FactsResult
 import com.pliniodev.chucknorrisfacts.viewmodel.test_utils.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.*
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
@@ -55,11 +56,11 @@ class MainViewModelTest {
         viewModel.viewFlipperLiveData.observeForever(viewFlipperLiveDataObserver)
 
         //act
-        viewModel.getFactsFromFreeSearch(query = "food")
+        viewModel.getByFreeSearch(query = "food")
 
         //Assert
         verify(searchResultLiveDataObserver).onChanged(facts)
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(1, null))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(2, null))
     }
 
     @ExperimentalCoroutinesApi
@@ -71,10 +72,10 @@ class MainViewModelTest {
         viewModel.viewFlipperLiveData.observeForever(viewFlipperLiveDataObserver)
 
 
-        viewModel.getFactsFromFreeSearch(query = "fo")
+        viewModel.getByFreeSearch(query = "fo")
 
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(2, R.string.facts_error_404))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_404))
     }
 
     @ExperimentalCoroutinesApi
@@ -86,10 +87,10 @@ class MainViewModelTest {
         viewModel.viewFlipperLiveData.observeForever(viewFlipperLiveDataObserver)
 
 
-        viewModel.getFactsFromFreeSearch(query = "fo")
+        viewModel.getByFreeSearch(query = "fo")
 
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(2, R.string.facts_error_400))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_400))
     }
 
     @ExperimentalCoroutinesApi
@@ -101,10 +102,10 @@ class MainViewModelTest {
         viewModel.viewFlipperLiveData.observeForever(viewFlipperLiveDataObserver)
 
 
-        viewModel.getFactsFromFreeSearch(query = "fo")
+        viewModel.getByFreeSearch(query = "fo")
 
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(2, R.string.facts_error_500))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_500))
     }
 
     @ExperimentalCoroutinesApi
@@ -116,16 +117,27 @@ class MainViewModelTest {
         viewModel.viewFlipperLiveData.observeForever(viewFlipperLiveDataObserver)
 
 
-        viewModel.getFactsFromFreeSearch(query = "fo")
+        viewModel.getByFreeSearch(query = "fo")
 
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(2, R.string.facts_error_server_error))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_server_error))
     }
 }
 
 class MockRepository(private val result: FactsResult) : ChuckNorrisRepository {
-    override suspend fun getFact(query: String, resultCallback: (result: FactsResult) -> Unit) {
-        resultCallback(result)
+    override suspend fun getByFreeQuery(query: String, factsResult: (result: FactsResult) -> Unit) {
+        factsResult(result)
+    }
+
+    override suspend fun getByCategory(
+        category: String,
+        factsResult: (result: FactsResult) -> Unit
+    ) {
+        factsResult(result)
+    }
+
+    override suspend fun getByRandom(factsResult: (result: FactsResult) -> Unit) {
+        factsResult(result)
     }
 }
 

@@ -11,18 +11,21 @@
     <!--Errors-->
     <string name="facts_error_400">Invalid search! \nSize of search must be between 3 and 120</string>
     <string name="facts_error_404">Have no jokes for this search! \n C\'mon Try again!</string>
-    <string name="facts_error_500">Invalid search! \nSize of search must be between 3 and 120</string>
+    <string name="facts_error_500">Sorry for that, try search some other thing!</string>
     <string name="facts_error_server_error">Server is crazy. \nTry again in some minutes.</string>
     <string name="facts_error_lost_connection">Connection Lost! Please check your connection!</string>
-    <string name="search">Search</string>
+
+    <!--Preview lorem-->
+    <string name="Preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+        do eiusmod tempor incididunt</string>
+
     <string name="search_a_fact_about_chuck_norris">Search a fact about Chuck Norris</string>
     <string name="you_need_search">You need to search something!</string>
     <string name="yeah_its_a_search">Yeah! Its a search.</string>
     <string name="max_search_characters">Max.120 characters</string>
-    <string name="Preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-        do eiusmod tempor incididunt</string>
     <string name="do_the_search">C\'mon search something!</string>
     <string name="no_symbols">No symbols, just letter or numbers ok?</string>
     <string name="hello_help_text">Hey! Welcome! \nDo a search, and see the magic happens!</string>
+    <string name="new_search_question">Do you want to hear a joke?</string>
 
 </resources>

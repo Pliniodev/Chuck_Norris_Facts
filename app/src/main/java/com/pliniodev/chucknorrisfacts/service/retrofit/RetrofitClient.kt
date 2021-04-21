@@ -1,5 +1,6 @@
 package com.pliniodev.chucknorrisfacts.service.retrofit
 
+import com.pliniodev.chucknorrisfacts.BuildConfig.DEBUG
 import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,32 +9,40 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object RetrofitClient {
+private const val CONNECTION_TIMEOUT: Long = 60000L// 20s
+private const val baseUrl: String = "https://api.chucknorris.io/"
 
-    private const val connectTimeout: Long = 40// 20s
-    private const val readTimeout: Long = 40 // 20s
-    private const val baseUrl: String = "https://api.chucknorris.io/"
+internal fun provideOkHttpClient(): OkHttpClient {
 
-    private fun provideHttpClient(): OkHttpClient {
+    val client = OkHttpClient.Builder()
+        .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
+        .readTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
+
+    if(DEBUG) {
         val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY) //alterar de basic para body
-        return OkHttpClient.Builder()
-            .connectTimeout(connectTimeout, TimeUnit.SECONDS)
-            .readTimeout(readTimeout, TimeUnit.SECONDS)
-            .addInterceptor(logging)
-            .build()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+        client.addInterceptor(logging)
     }
 
-    private fun provideRetrofit(client: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-    }
+    return client.build()
 
-    val retrofitService: ChuckNorrisApi =
-        provideRetrofit(provideHttpClient()).create(ChuckNorrisApi::class.java)
-
+//    val logging = HttpLoggingInterceptor()
+//    logging.setLevel(HttpLoggingInterceptor.Level.BODY) //alterar de basic para body
+//     val client: OkHttpClient.Builder()
+//        .connectTimeout(connectTimeout, TimeUnit.SECONDS)
+//        .readTimeout(readTimeout, TimeUnit.SECONDS)
+//        .addInterceptor(logging)
+//        .build()
 }
+
+internal fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+}
+
+internal inline fun <reified T> createApi(retrofit: Retrofit) = retrofit.create(T::class.java)
+

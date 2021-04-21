@@ -15,51 +15,76 @@ class MainViewModel(
 
     val searchResultLiveData = MutableLiveData<List<Fact>>()
 
-    val viewFlipperLiveData: MutableLiveData<Pair<Int, Int?>> = MutableLiveData()
+    val viewFlipperLiveData = MutableLiveData<Pair<Int, Int?>>()
 
-    fun getFactsFromFreeSearch(query: String) {
+    fun getByFreeSearch(query: String) {
         viewModelScope.launch {
-            repository.getFact(query) { result: FactsResult ->
-                when (result) {
-                    is FactsResult.Success -> {
-                        searchResultLiveData.value = result.successData
-                        viewFlipperLiveData.value = Pair(VIEW_FLIPPER_FACTS, null)
-                    }
-                    is FactsResult.ApiError -> {
-                        when (result.statusCode) {
-                            400 -> {
-                                viewFlipperLiveData.value =
-                                    Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_400)
-                            }
-                             404 -> {
-                                viewFlipperLiveData.value =
-                                    Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_404)
-                            }
-                            500 -> {
-                                viewFlipperLiveData.value =
-                                    Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_500)
-                            }
-                        }
-                    }
-                    is FactsResult.ServerError -> {
-                        viewFlipperLiveData.value =
-                            Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_server_error)
-                    }
-                    is FactsResult.ConnectionError -> {
-                        viewFlipperLiveData.value =
-                            Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_lost_connection)
-                    }
-                }
+            repository.getByFreeQuery(query) { result: FactsResult ->
+                onSearchResult(result)
+            }
+        }
+    }
+    fun getByRandom() {
+        viewModelScope.launch {
+            repository.getByRandom() { result: FactsResult ->
+                onSearchResult(result)
+            }
+        }
+    }
+    fun getByCategory(category: String) {
+        viewModelScope.launch {
+            repository.getByCategory(category) { result: FactsResult ->
+                onSearchResult(result)
             }
         }
     }
 
-    companion object {
+    private fun onSearchResult(result: FactsResult) {
+        when (result) {
+            is FactsResult.Success -> {
+                searchResultLiveData.value = result.successData
+                viewFlipperLiveData.value = Pair(VIEW_FLIPPER_FACTS, null)
+            }
+            is FactsResult.ApiError -> {
+                viewFlipperLiveData.value = onApiError(result.statusCode)
+            }
+            is FactsResult.ServerError -> {
+                viewFlipperLiveData.value =
+                    Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_server_error)
+            }
+            is FactsResult.ConnectionError -> {
+                viewFlipperLiveData.value = Pair(
+                    VIEW_FLIPPER_ERROR,
+                    R.string.facts_error_lost_connection
+                )
+            }
+        }
+    }
+
+    private fun onApiError(result: Int): Pair<Int, Int> {
+        return when (result) {
+            400 -> {
+                Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_400)
+            }
+            404 -> {
+                Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_404)
+            }
+            else -> {
+                Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_500)
+            }
+        }
+    }
+
+
+
+
+    companion object{
         private const val VIEW_FLIPPER_FACTS = 2
         private const val VIEW_FLIPPER_ERROR = 3
-
     }
 
 }
+
+
 
 

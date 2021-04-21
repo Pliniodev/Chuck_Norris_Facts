@@ -20,49 +20,94 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_search"
+    <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/button_unabled"
-        android:enabled="false"
-        android:padding="16dp"
-        android:text="@string/Search"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_search" />
+        android:gravity="center"
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_layout_search"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="What do you prefer?"/>
+
+        <RadioButton
+            android:id="@+id/radio_random"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Give me a random Joke!"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/radio_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I want to search by a category!"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/radio_free"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let me free to search"
+            android:textSize="18sp" />
+
+    </RadioGroup>
+
+    <LinearLayout
+
+        android:id="@+id/layout_to_write_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        app:boxStrokeColor="@color/blue_background"
-        app:boxStrokeWidth="1.5dp"
-        app:boxStrokeWidthFocused="3dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="120"
-        app:endIconMode="clear_text"
-        app:errorEnabled="true"
-        app:helperTextEnabled="true"
+        android:orientation="vertical"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_search"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_search"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/Search"
-            android:inputType="textPersonName" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            app:boxStrokeColor="@color/blue_background"
+            app:boxStrokeWidth="1.5dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="120"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/Search"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/button_unabled"
+            android:enabled="false"
+            android:padding="16dp"
+            android:text="@string/Search"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

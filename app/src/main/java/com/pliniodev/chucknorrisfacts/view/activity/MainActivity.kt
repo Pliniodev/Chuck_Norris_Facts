@@ -10,9 +10,10 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.pliniodev.chucknorrisfacts.R
+import com.pliniodev.chucknorrisfacts.constants.Constants
 import com.pliniodev.chucknorrisfacts.databinding.ActivityMainBinding
-import com.pliniodev.chucknorrisfacts.service.model.Fact
 import com.pliniodev.chucknorrisfacts.view.adapter.FactsAdapter
 import com.pliniodev.chucknorrisfacts.view.listener.FactsListener
 import com.pliniodev.chucknorrisfacts.viewmodel.MainViewModel
@@ -32,15 +33,43 @@ class MainActivity : AppCompatActivity(), FactsListener{
 
         setView()
         observe()
-        binding.viewFlipperFacts.displayedChild = VIEW_HELLO_HELP
     }
 
     override fun onResume() {
         super.onResume()
-        val message = intent.getStringExtra("searchText")
-        if (message != null) {
-            mViewModel.getFactsFromFreeSearch(message)
-            binding.viewFlipperFacts.displayedChild = MY_PROGRESSBAR
+        val bundle = intent.extras
+        if (bundle != null) {
+            loadData(bundle)
+        } else{
+            binding.viewFlipperFacts.displayedChild = VIEW_HELLO_HELP
+        }
+    }
+
+    private fun loadData(bundle: Bundle) {
+        val message = bundle.getString(Constants.SEARCH_MESSAGE)
+        val isSearchByRandom = bundle.getBoolean(Constants.IS_SEARCH_BY_RANDOM)
+        val isSearchByCategory = bundle.getBoolean(Constants.IS_SEARCH_BY_CATEGORY)
+
+        when {
+            !isSearchByCategory && !isSearchByRandom -> {
+                if (message != null) {
+                    mViewModel.getByFreeSearch(message)
+                    binding.viewFlipperFacts.displayedChild = MY_PROGRESSBAR
+                } else {
+                    binding.textHelp.text = getString(R.string.new_search_question)
+                    binding.viewFlipperFacts.displayedChild = VIEW_HELLO_HELP
+                }
+            }
+            isSearchByRandom -> {
+                mViewModel.getByRandom()
+                binding.viewFlipperFacts.displayedChild = MY_PROGRESSBAR
+            }
+            isSearchByCategory -> {
+                if (message != null) {
+                    mViewModel.getByCategory(message)
+                    binding.viewFlipperFacts.displayedChild = MY_PROGRESSBAR
+                }
+            }
         }
     }
 
@@ -75,7 +104,6 @@ class MainActivity : AppCompatActivity(), FactsListener{
         mViewModel.viewFlipperLiveData.observe(this, Observer {
             it?.let { viewFlipper ->
                 binding.viewFlipperFacts.displayedChild = viewFlipper.first
-
                 viewFlipper.second?.let { errorMessageResId ->
                     binding.textViewError.text = getString(errorMessageResId)
                 }
@@ -84,6 +112,19 @@ class MainActivity : AppCompatActivity(), FactsListener{
     }
 
     private fun setView() {
+        setAdapter()
+        setHelloImage()
+    }
+
+    private fun setHelloImage() {
+        val welcomeImage = binding.welcomeImage
+        Glide.with(this)
+            .load("https://assets.chucknorris.host/img/avatar/chuck-norris.png")
+            .placeholder(R.drawable.ic_baseline_sentiment_very_satisfied_24)
+            .into(welcomeImage);
+    }
+
+    private fun setAdapter() {
         mAdapter = FactsAdapter(this@MainActivity, this)
         mRecyclerView = binding.root.findViewById(R.id.facts_recycler)
         mRecyclerView.layoutManager = LinearLayoutManager(

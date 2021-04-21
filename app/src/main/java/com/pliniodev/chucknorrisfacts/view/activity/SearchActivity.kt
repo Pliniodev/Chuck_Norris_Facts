@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.pliniodev.chucknorrisfacts.R
+import com.pliniodev.chucknorrisfacts.constants.Constants
 import com.pliniodev.chucknorrisfacts.databinding.ActivitySearchBinding
 import com.pliniodev.chucknorrisfacts.viewmodel.SearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,9 +24,21 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
 
         observe()
+        setListeners()
         validateSearch()
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        navigateToMain(null,isSearchByCategory = false,isSearchByRandom = false)
+    }
+
+    private fun setListeners() {
         binding.buttonSearch.setOnClickListener(this)
-        binding.textInputLayoutSearch.helperText = getString(R.string.do_the_search)
+        binding.radioRandom.setOnClickListener(this)
+        binding.radioCategory.setOnClickListener(this)
+        binding.radioFree.setOnClickListener(this)
     }
 
     private fun validateSearch() {
@@ -66,7 +79,6 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                         binding.textInputLayoutSearch.error = getString(msgValidate)
                     }
                 }
-
             }
         })
     }
@@ -82,16 +94,36 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
-        if (view.id == binding.buttonSearch.id) {
-            val search = binding.editSearch.text.toString()
-
-            navigateToMain(cleanSearch(search))
+        val search = binding.editSearch.text.toString()
+        val isSearchByRandom = binding.radioRandom.isChecked
+        val isSearchByCategory = binding.radioCategory.isChecked
+        when (view.id) {
+            binding.buttonSearch.id -> {
+                navigateToMain(cleanSearch(search), isSearchByRandom, isSearchByCategory )
+            }
+            binding.radioRandom.id -> {
+                navigateToMain(null, isSearchByRandom, isSearchByCategory )
+            }
+            else ->{
+                binding.textInputLayoutSearch.helperText = getString(R.string.do_the_search)
+                binding.layoutToWriteMsg.visibility = View.VISIBLE
+            }
         }
     }
 
-    private fun navigateToMain(search: String) {
+    private fun navigateToMain(
+        search: String?,
+        isSearchByRandom: Boolean,
+        isSearchByCategory: Boolean
+    ) {
         val intent = Intent(this, MainActivity::class.java)
-            .putExtra("searchText", search)
+
+        val bundle = Bundle()
+        bundle.putString(Constants.SEARCH_MESSAGE,search)
+        bundle.putBoolean(Constants.IS_SEARCH_BY_RANDOM, isSearchByRandom)
+        bundle.putBoolean(Constants.IS_SEARCH_BY_CATEGORY, isSearchByCategory)
+        intent.putExtras(bundle)
+
         startActivity(intent)
         finish()
     }

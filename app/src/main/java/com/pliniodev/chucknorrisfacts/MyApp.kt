@@ -7,7 +7,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
-class MyApp : Application() {
+open class MyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -19,13 +19,12 @@ class MyApp : Application() {
              * ISSUE relacionada https://github.com/InsertKoinIO/koin/issues/847
              * parece ter sido resolvido na versão 2.2.0-alpha-1
              */
-            androidLogger(Level.NONE)
+            androidLogger()
             androidContext(this@MyApp)
 
             modules(
-                mainModule,
-                searchModule,
-                networkModule,
+                uiModule,
+                remoteModule,
                 repositoryModule
             )
         }
