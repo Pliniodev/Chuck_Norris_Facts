@@ -137,20 +137,17 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                 navigateToMain(null, isSearchByRandom, isSearchByCategory)
             }
             binding.radioCategory.id -> {
-                if (binding.textInputLayoutSearch.visibility == View.VISIBLE) {
-                    binding.textInputLayoutSearch.visibility = View.GONE
-                }
+                binding.textInputLayoutSearch.visibility = View.GONE
                 binding.layoutToWriteMsg.visibility = View.VISIBLE
                 binding.dropmenuCategory.visibility = View.VISIBLE
             }
             binding.radioFree.id -> {
-                if (binding.dropmenuCategory.visibility == View.VISIBLE) {
-                    binding.dropmenuCategory.visibility = View.GONE
-                }
-                binding.textInputLayoutSearch.helperText = getString(R.string.do_the_search)
-                binding.textInputLayoutSearch.visibility = View.VISIBLE
-                binding.layoutToWriteMsg.visibility = View.VISIBLE
 
+                binding.dropmenuCategory.visibility = View.GONE
+
+                binding.textInputLayoutSearch.helperText = getString(R.string.do_the_search)
+                binding.layoutToWriteMsg.visibility = View.VISIBLE
+                binding.textInputLayoutSearch.visibility = View.VISIBLE
             }
             binding.buttonSearch.id -> {
                 if (binding.radioCategory.isChecked) {

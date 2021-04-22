@@ -18,7 +18,7 @@ class ChuckNorrisRepositoryImpl(
         query: String,
         factsResult: (result: FactsResult) -> Unit
     ) {
-        CoroutineScope(IO).launch{
+        CoroutineScope(IO).launch {
             if (isOnline(context)) {
 
                 val responseByFreeQuery = api.getByFreeQuery(query)
@@ -52,7 +52,7 @@ class ChuckNorrisRepositoryImpl(
         category: String,
         factsResult: (result: FactsResult) -> Unit
     ) {
-        CoroutineScope(IO).launch{
+        CoroutineScope(IO).launch {
             if (isOnline(context)) {
 
                 val responseByCategory = api.getByCategory(category)
@@ -84,7 +84,7 @@ class ChuckNorrisRepositoryImpl(
     override suspend fun getByRandom(
         factsResult: (result: FactsResult) -> Unit
     ) {
-        CoroutineScope(IO).launch{
+        CoroutineScope(IO).launch {
             val responseByRandom = api.getRandom()
 
             if (isOnline(context)) {
@@ -98,9 +98,11 @@ class ChuckNorrisRepositoryImpl(
 
                         }
                         factsResult(FactsResult.Success(factDetailsResponse))
+                    } else {
+                        factsResult(FactsResult.ApiError(responseByRandom.code()))
                     }
-                } catch (t: Throwable) {
-                    factsResult(FactsResult.ApiError(responseByRandom.code()))
+                } catch (e: Exception) {
+                    factsResult(FactsResult.ServerError)
                 }
             } else {
                 factsResult(noNetworkConnectivityError())

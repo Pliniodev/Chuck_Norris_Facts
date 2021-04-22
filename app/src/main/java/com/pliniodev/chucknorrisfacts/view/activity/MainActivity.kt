@@ -1,12 +1,11 @@
 package com.pliniodev.chucknorrisfacts.view.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +18,7 @@ import com.pliniodev.chucknorrisfacts.view.listener.FactsListener
 import com.pliniodev.chucknorrisfacts.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), FactsListener{
+class MainActivity : AppCompatActivity(), FactsListener {
 
     private val mViewModel: MainViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity(), FactsListener{
         val bundle = intent.extras
         if (bundle != null) {
             loadData(bundle)
-        } else{
+        } else {
             binding.viewFlipperFacts.displayedChild = VIEW_HELLO_HELP
         }
     }
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity(), FactsListener{
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.menu_search,menu)
+        inflater.inflate(R.menu.menu_search, menu)
         return true
     }
 
@@ -89,12 +88,12 @@ class MainActivity : AppCompatActivity(), FactsListener{
         }
     }
 
-    private fun navigateToSearch(){
+    private fun navigateToSearch() {
         startActivity(Intent(this, SearchActivity::class.java))
         finish()
     }
 
-    private fun observe(){
+    private fun observe() {
         mViewModel.searchResultLiveData.observe(this, Observer {
             it?.let { facts ->
                 mAdapter.setFacts(facts)
@@ -103,7 +102,13 @@ class MainActivity : AppCompatActivity(), FactsListener{
 
         mViewModel.viewFlipperLiveData.observe(this, Observer {
             it?.let { viewFlipper ->
-                binding.viewFlipperFacts.displayedChild = viewFlipper.first
+                if (viewFlipper.first == Constants.VIEW_FLIPPER_SEARCH_IS_EMPTY) {
+                    binding.imageError.setImageResource(R.drawable.ic_baseline_search_off_24)
+                    binding.viewFlipperFacts.displayedChild = Constants.VIEW_FLIPPER_ERROR
+                } else {
+                    binding.viewFlipperFacts.displayedChild = viewFlipper.first
+                    binding.imageError.setImageResource(R.drawable.ic_baseline_error_50)
+                }
                 viewFlipper.second?.let { errorMessageResId ->
                     binding.textViewError.text = getString(errorMessageResId)
                 }
@@ -128,13 +133,20 @@ class MainActivity : AppCompatActivity(), FactsListener{
         mAdapter = FactsAdapter(this@MainActivity, this)
         mRecyclerView = binding.root.findViewById(R.id.facts_recycler)
         mRecyclerView.layoutManager = LinearLayoutManager(
-            this@MainActivity, LinearLayoutManager.VERTICAL,false)
+            this@MainActivity, LinearLayoutManager.VERTICAL, false
+        )
         mRecyclerView.adapter = mAdapter
     }
 
     override fun onClickShareImage(url: String) {
-        Toast.makeText(this, "URL $url", Toast.LENGTH_LONG).show()
-        //todo compartilhamento
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, url)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, "URL")
+        startActivity(shareIntent)
     }
 
     companion object {
