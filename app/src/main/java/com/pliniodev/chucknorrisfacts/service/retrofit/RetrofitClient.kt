@@ -25,14 +25,6 @@ internal fun provideOkHttpClient(): OkHttpClient {
     }
 
     return client.build()
-
-//    val logging = HttpLoggingInterceptor()
-//    logging.setLevel(HttpLoggingInterceptor.Level.BODY) //alterar de basic para body
-//     val client: OkHttpClient.Builder()
-//        .connectTimeout(connectTimeout, TimeUnit.SECONDS)
-//        .readTimeout(readTimeout, TimeUnit.SECONDS)
-//        .addInterceptor(logging)
-//        .build()
 }
 
 internal fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {

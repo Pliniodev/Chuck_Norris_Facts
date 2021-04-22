@@ -42,20 +42,21 @@ class MainViewModel(
     private fun onSearchResult(result: FactsResult) {
         when (result) {
             is FactsResult.Success -> {
-                searchResultLiveData.value = result.successData
-                viewFlipperLiveData.value = Pair(VIEW_FLIPPER_FACTS, null)
+                searchResultLiveData.postValue(result.successData)
+                viewFlipperLiveData.postValue(Pair(VIEW_FLIPPER_FACTS, null))
             }
             is FactsResult.ApiError -> {
-                viewFlipperLiveData.value = onApiError(result.statusCode)
+                viewFlipperLiveData.postValue(onApiError(result.statusCode))
             }
             is FactsResult.ServerError -> {
-                viewFlipperLiveData.value =
-                    Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_server_error)
+                viewFlipperLiveData.postValue(
+                    Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_server_error))
+
             }
             is FactsResult.ConnectionError -> {
-                viewFlipperLiveData.value = Pair(
-                    VIEW_FLIPPER_ERROR,
-                    R.string.facts_error_lost_connection
+                viewFlipperLiveData.postValue(
+                    Pair( VIEW_FLIPPER_ERROR,
+                    R.string.facts_error_lost_connection)
                 )
             }
         }
