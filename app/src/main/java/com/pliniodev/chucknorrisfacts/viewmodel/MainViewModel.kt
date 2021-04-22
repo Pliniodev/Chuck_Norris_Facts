@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pliniodev.chucknorrisfacts.R
+import com.pliniodev.chucknorrisfacts.constants.Constants
 import com.pliniodev.chucknorrisfacts.service.model.Fact
 import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepository
 import com.pliniodev.chucknorrisfacts.service.utils.FactsResult
@@ -42,20 +43,23 @@ class MainViewModel(
     private fun onSearchResult(result: FactsResult) {
         when (result) {
             is FactsResult.Success -> {
-                searchResultLiveData.postValue(result.successData)
-                viewFlipperLiveData.postValue(Pair(VIEW_FLIPPER_FACTS, null))
+                if (result.successData.isEmpty()){
+                    viewFlipperLiveData.postValue(Pair(Constants.VIEW_FLIPPER_SEARCH_IS_EMPTY, R.string.empty_search))
+                } else {
+                    searchResultLiveData.postValue(result.successData)
+                    viewFlipperLiveData.postValue(Pair(Constants.VIEW_FLIPPER_FACTS, null))
+                }
             }
             is FactsResult.ApiError -> {
                 viewFlipperLiveData.postValue(onApiError(result.statusCode))
             }
             is FactsResult.ServerError -> {
                 viewFlipperLiveData.postValue(
-                    Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_server_error))
-
+                    Pair(Constants.VIEW_FLIPPER_ERROR, R.string.facts_error_server_error))
             }
             is FactsResult.ConnectionError -> {
                 viewFlipperLiveData.postValue(
-                    Pair( VIEW_FLIPPER_ERROR,
+                    Pair(Constants.VIEW_FLIPPER_ERROR,
                     R.string.facts_error_lost_connection)
                 )
             }
@@ -65,24 +69,17 @@ class MainViewModel(
     private fun onApiError(result: Int): Pair<Int, Int> {
         return when (result) {
             400 -> {
-                Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_400)
+                Pair(Constants.VIEW_FLIPPER_ERROR, R.string.facts_error_400)
             }
             404 -> {
-                Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_404)
+                Pair(Constants.VIEW_FLIPPER_ERROR, R.string.facts_error_404)
             }
             else -> {
-                Pair(VIEW_FLIPPER_ERROR, R.string.facts_error_500)
+                Pair(Constants.VIEW_FLIPPER_ERROR, R.string.facts_error_generic)
             }
         }
     }
 
-
-
-
-    companion object{
-        private const val VIEW_FLIPPER_FACTS = 2
-        private const val VIEW_FLIPPER_ERROR = 3
-    }
 
 }
 
