@@ -28,11 +28,12 @@
         android:gravity="center"
 
         app:layout_constraintTop_toBottomOf="@+id/textView">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="What do you prefer?"/>
+            android:text="What do you prefer?"
+            android:textSize="18sp" />
 
         <RadioButton
             android:id="@+id/radio_random"
@@ -64,19 +65,35 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:orientation="vertical"
+        android:padding="16dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dropmenu_category"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/category"
+            android:visibility="invisible">
+
+            <AutoCompleteTextView
+                android:id="@+id/edit_list_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_recyclerview_16dp"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_search"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
+            android:visibility="invisible"
             app:boxStrokeColor="@color/blue_background"
             app:boxStrokeWidth="1.5dp"
             app:boxStrokeWidthFocused="3dp"
@@ -84,7 +101,9 @@
             app:counterMaxLength="120"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
-            app:helperTextEnabled="true">
+            app:helperTextEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_to_write_msg">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_search"
@@ -98,9 +117,7 @@
             android:id="@+id/button_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:backgroundTint="@color/button_unabled"
             android:enabled="false"
             android:padding="16dp"
