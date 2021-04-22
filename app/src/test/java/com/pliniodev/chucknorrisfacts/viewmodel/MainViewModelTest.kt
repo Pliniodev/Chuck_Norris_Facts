@@ -99,7 +99,7 @@ class MainViewModelTest {
 
         viewModel.getByFreeSearch(query = "fo")
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_500))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_generic))
     }
 
     @ExperimentalCoroutinesApi
@@ -181,7 +181,7 @@ class MainViewModelTest {
 
         viewModel.getByRandom()
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_500))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_generic))
     }
 
     @ExperimentalCoroutinesApi
@@ -263,7 +263,7 @@ class MainViewModelTest {
 
         viewModel.getByCategory("food")
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_500))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_generic))
     }
 
     @ExperimentalCoroutinesApi
