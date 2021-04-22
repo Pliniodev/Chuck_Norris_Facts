@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.pliniodev.chucknorrisfacts.R
@@ -25,23 +26,55 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
         observe()
         setListeners()
-        validateSearch()
+        setView()
+    }
 
+    private fun setView() {
+        //todo livedata<listof>
+        val items = listOf(
+            "Animal",
+            "Career",
+            "Celebrity",
+            "Dev",
+            "Explicit",
+            "Fashion",
+            "Food",
+            "History",
+            "Money",
+            "Movie",
+            "Music",
+            "Political",
+            "Religion",
+            "Science",
+            "Sport",
+            "Travel"
+        )//TEMPORÁRIO
+        val adapter = ArrayAdapter(this, R.layout.category_list, items)
+        (binding.editListCategory).setAdapter(adapter)
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        navigateToMain(null,isSearchByCategory = false,isSearchByRandom = false)
+        navigateToMain(null, isSearchByCategory = false, isSearchByRandom = false)
     }
 
     private fun setListeners() {
+        setEditSearchListener()
+        setEditCategoryListener()
         binding.buttonSearch.setOnClickListener(this)
         binding.radioRandom.setOnClickListener(this)
         binding.radioCategory.setOnClickListener(this)
         binding.radioFree.setOnClickListener(this)
     }
 
-    private fun validateSearch() {
+    private fun setEditCategoryListener() {
+        (binding.editListCategory).setOnItemClickListener { parent, view, position, id ->
+            binding.buttonSearch.isEnabled = true
+            binding.buttonSearch.setBackgroundColor(this.getColor(R.color.blue_background));
+        }
+    }
+
+    private fun setEditSearchListener() {
         binding.editSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(search: Editable) {
                 if (search.isEmpty()) {
@@ -95,18 +128,36 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         val search = binding.editSearch.text.toString()
+        val category = binding.editListCategory.text.toString()
         val isSearchByRandom = binding.radioRandom.isChecked
         val isSearchByCategory = binding.radioCategory.isChecked
+
         when (view.id) {
-            binding.buttonSearch.id -> {
-                navigateToMain(cleanSearch(search), isSearchByRandom, isSearchByCategory )
-            }
             binding.radioRandom.id -> {
-                navigateToMain(null, isSearchByRandom, isSearchByCategory )
+                navigateToMain(null, isSearchByRandom, isSearchByCategory)
             }
-            else ->{
-                binding.textInputLayoutSearch.helperText = getString(R.string.do_the_search)
+            binding.radioCategory.id -> {
+                if (binding.textInputLayoutSearch.visibility == View.VISIBLE) {
+                    binding.textInputLayoutSearch.visibility = View.GONE
+                }
                 binding.layoutToWriteMsg.visibility = View.VISIBLE
+                binding.dropmenuCategory.visibility = View.VISIBLE
+            }
+            binding.radioFree.id -> {
+                if (binding.dropmenuCategory.visibility == View.VISIBLE) {
+                    binding.dropmenuCategory.visibility = View.GONE
+                }
+                binding.textInputLayoutSearch.helperText = getString(R.string.do_the_search)
+                binding.textInputLayoutSearch.visibility = View.VISIBLE
+                binding.layoutToWriteMsg.visibility = View.VISIBLE
+
+            }
+            binding.buttonSearch.id -> {
+                if (binding.radioCategory.isChecked) {
+                    navigateToMain(cleanSearch(category), isSearchByRandom, isSearchByCategory)
+                } else {
+                    navigateToMain(cleanSearch(search), isSearchByRandom, isSearchByCategory)
+                }
             }
         }
     }
@@ -116,10 +167,11 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         isSearchByRandom: Boolean,
         isSearchByCategory: Boolean
     ) {
+
         val intent = Intent(this, MainActivity::class.java)
 
         val bundle = Bundle()
-        bundle.putString(Constants.SEARCH_MESSAGE,search)
+        bundle.putString(Constants.SEARCH_MESSAGE, search)
         bundle.putBoolean(Constants.IS_SEARCH_BY_RANDOM, isSearchByRandom)
         bundle.putBoolean(Constants.IS_SEARCH_BY_CATEGORY, isSearchByCategory)
         intent.putExtras(bundle)
@@ -129,7 +181,8 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun cleanSearch(search: String): String {
-        return search.filter { it.isLetterOrDigit() }
+        //if translate is necessary check the insert Locate in toLowerCase
+        return search.filter { it.isLetterOrDigit() }.toLowerCase()
     }
 
 }
