@@ -29,6 +29,6 @@ object Validator {
     }
 
     private fun haveSymbols(search: String): Boolean {
-        return search.filterNot { it.isLetterOrDigit()}.count() > 0
+        return search.filterNot { it.isLetterOrDigit() || it.isWhitespace() }.count() > 0
     }
 }
