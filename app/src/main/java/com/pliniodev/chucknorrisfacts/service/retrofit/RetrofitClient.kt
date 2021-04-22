@@ -1,7 +1,6 @@
 package com.pliniodev.chucknorrisfacts.service.retrofit
 
 import com.pliniodev.chucknorrisfacts.BuildConfig.DEBUG
-import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,7 +17,7 @@ internal fun provideOkHttpClient(): OkHttpClient {
         .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
         .readTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
 
-    if(DEBUG) {
+    if (DEBUG) {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
         client.addInterceptor(logging)
