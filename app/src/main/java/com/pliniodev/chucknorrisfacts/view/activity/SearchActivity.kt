@@ -26,31 +26,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
         observe()
         setListeners()
-        setView()
-    }
-
-    private fun setView() {
-        //todo livedata<listof>
-        val items = listOf(
-            "Animal",
-            "Career",
-            "Celebrity",
-            "Dev",
-            "Explicit",
-            "Fashion",
-            "Food",
-            "History",
-            "Money",
-            "Movie",
-            "Music",
-            "Political",
-            "Religion",
-            "Science",
-            "Sport",
-            "Travel"
-        )//TEMPORÁRIO
-        val adapter = ArrayAdapter(this, R.layout.category_list, items)
-        (binding.editListCategory).setAdapter(adapter)
+        mViewModel.getListCategories()
     }
 
     override fun onBackPressed() {
@@ -113,6 +89,9 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
             }
+        })
+        mViewModel.listCategoryLiveData.observe(this, Observer { categoriesList ->
+            (binding.editListCategory).setAdapter(ArrayAdapter(this, R.layout.category_list, categoriesList))
         })
     }
 
