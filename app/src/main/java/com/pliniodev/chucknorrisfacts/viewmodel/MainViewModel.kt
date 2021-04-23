@@ -5,9 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pliniodev.chucknorrisfacts.R
 import com.pliniodev.chucknorrisfacts.constants.Constants
+import com.pliniodev.chucknorrisfacts.data.response.FactBodyResponse
+import com.pliniodev.chucknorrisfacts.data.response.FactDetailsResponse
 import com.pliniodev.chucknorrisfacts.service.model.Fact
 import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepository
 import com.pliniodev.chucknorrisfacts.service.utils.FactsResult
+import com.pliniodev.chucknorrisfacts.service.utils.onError
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -20,42 +23,42 @@ class MainViewModel(
 
     fun getByFreeSearch(query: String) {
         viewModelScope.launch {
-            repository.getByFreeQuery(query) { result: FactsResult ->
+            repository.getByFreeQuery(query) { result: FactsResult<List<Fact>> ->
                 onSearchResult(result)
             }
         }
     }
     fun getByRandom() {
         viewModelScope.launch {
-            repository.getByRandom() { result: FactsResult ->
+            repository.getByRandom() { result: FactsResult<List<Fact>> ->
                 onSearchResult(result)
             }
         }
     }
     fun getByCategory(category: String) {
         viewModelScope.launch {
-            repository.getByCategory(category) { result: FactsResult ->
+            repository.getByCategory(category) { result: FactsResult<List<Fact>> ->
                 onSearchResult(result)
             }
         }
     }
 
-    private fun onSearchResult(result: FactsResult) {
+    private fun onSearchResult(result: FactsResult<List<Fact>>) {
         when (result) {
             is FactsResult.Success -> {
                 if (result.successData.isEmpty()){
                     viewFlipperLiveData.postValue(Pair(Constants.VIEW_FLIPPER_SEARCH_IS_EMPTY, R.string.empty_search))
                 } else {
-                    searchResultLiveData.postValue(result.successData)
+                    searchResultLiveData.postValue(result.successData!!)
                     viewFlipperLiveData.postValue(Pair(Constants.VIEW_FLIPPER_FACTS, null))
                 }
             }
             is FactsResult.ApiError -> {
-                viewFlipperLiveData.postValue(onApiError(result.statusCode))
+                viewFlipperLiveData.postValue(onError(result.statusCode))
             }
             is FactsResult.ServerError -> {
-                viewFlipperLiveData.postValue(
-                    Pair(Constants.VIEW_FLIPPER_ERROR, R.string.facts_error_server_error))
+                viewFlipperLiveData.postValue(Pair(Constants.VIEW_FLIPPER_ERROR,
+                    R.string.facts_error_server_error))
             }
             is FactsResult.ConnectionError -> {
                 viewFlipperLiveData.postValue(
@@ -66,19 +69,7 @@ class MainViewModel(
         }
     }
 
-    private fun onApiError(result: Int): Pair<Int, Int> {
-        return when (result) {
-            400 -> {
-                Pair(Constants.VIEW_FLIPPER_ERROR, R.string.facts_error_400)
-            }
-            404 -> {
-                Pair(Constants.VIEW_FLIPPER_ERROR, R.string.facts_error_404)
-            }
-            else -> {
-                Pair(Constants.VIEW_FLIPPER_ERROR, R.string.facts_error_generic)
-            }
-        }
-    }
+
 
 
 }
