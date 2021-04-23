@@ -16,4 +16,7 @@ interface ChuckNorrisApi {
 
     @GET("/jokes/random")
     suspend fun getRandom(): Response<FactDetailsResponse>
+
+    @GET("/jokes/categories")
+    suspend fun getCategoriesList(): Response<List<String>>
 }
