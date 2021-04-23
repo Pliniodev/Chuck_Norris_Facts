@@ -9,5 +9,7 @@ object Constants {
     const val VIEW_FLIPPER_FACTS = 2
     const val VIEW_FLIPPER_ERROR = 3
     const val VIEW_FLIPPER_SEARCH_IS_EMPTY = 1000
+    const val SUCCESS = 1
+    const val RESULT_ERROR = 0
 
 }
