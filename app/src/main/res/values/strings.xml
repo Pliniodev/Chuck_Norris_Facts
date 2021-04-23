@@ -28,5 +28,7 @@
     <string name="hello_help_text">Hey! Welcome! \nDo a search, and see the magic happens!</string>
     <string name="new_search_question">Do you want to hear a joke?</string>
     <string name="empty_search">This search return\'s nothing! Try again!</string>
+    <string name="error_alert">Error</string>
+    <string name="try_again">Try again</string>
 
 </resources>
