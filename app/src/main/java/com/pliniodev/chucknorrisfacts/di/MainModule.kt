@@ -6,8 +6,10 @@ import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepositoryIm
 import com.pliniodev.chucknorrisfacts.service.retrofit.*
 import com.pliniodev.chucknorrisfacts.service.retrofit.createApi
 import com.pliniodev.chucknorrisfacts.service.retrofit.provideRetrofit
+import com.pliniodev.chucknorrisfacts.service.utils.CheckNetworkConnection
 import com.pliniodev.chucknorrisfacts.viewmodel.MainViewModel
 import com.pliniodev.chucknorrisfacts.viewmodel.SearchViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -17,12 +19,13 @@ val remoteModule = module {
     single { createApi<ChuckNorrisApi>(get()) }
 }
 
+
 val repositoryModule = module {
     single<ChuckNorrisRepository> { ChuckNorrisRepositoryImpl(get(), get()) }
 }
 
 val uiModule = module {
     viewModel { MainViewModel( repository = get()) }
-    viewModel { SearchViewModel() }
+    viewModel { SearchViewModel(repository = get()) }
 }
 

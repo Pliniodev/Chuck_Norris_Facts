@@ -16,7 +16,7 @@ class ChuckNorrisRepositoryImpl(
 
     override suspend fun getByFreeQuery(
         query: String,
-        factsResult: (result: FactsResult) -> Unit
+        factsResult: (result: FactsResult<List<Fact>>) -> Unit
     ) {
         CoroutineScope(IO).launch {
             if (isOnline(context)) {
@@ -25,6 +25,7 @@ class ChuckNorrisRepositoryImpl(
 
                 try {
                     val factDetailsResponse: MutableList<Fact> = mutableListOf()
+
                     if (responseByFreeQuery.isSuccessful) {
 
                         responseByFreeQuery.body()?.let { factsResultResponse ->
@@ -50,7 +51,7 @@ class ChuckNorrisRepositoryImpl(
 
     override suspend fun getByCategory(
         category: String,
-        factsResult: (result: FactsResult) -> Unit
+        factsResult: (result: FactsResult<List<Fact>>) -> Unit
     ) {
         CoroutineScope(IO).launch {
             if (isOnline(context)) {
@@ -82,7 +83,7 @@ class ChuckNorrisRepositoryImpl(
     }
 
     override suspend fun getByRandom(
-        factsResult: (result: FactsResult) -> Unit
+        factsResult: (result: FactsResult<List<Fact>>) -> Unit
     ) {
         CoroutineScope(IO).launch {
             val responseByRandom = api.getRandom()
@@ -101,6 +102,45 @@ class ChuckNorrisRepositoryImpl(
                     } else {
                         factsResult(FactsResult.ApiError(responseByRandom.code()))
                     }
+                } catch (e: Exception) {
+                    factsResult(FactsResult.ServerError)
+                }
+            } else {
+                factsResult(noNetworkConnectivityError())
+            }
+        }
+    }
+
+    override suspend fun getCategoriesList(
+        factsResult: (result: FactsResult<List<String>>) -> Unit
+    ) {
+        CoroutineScope(IO).launch {
+            if (isOnline(context)) {
+
+                val responseCategories = api.getCategoriesList()
+
+                try {
+                    val categoriesList: MutableList<String> = mutableListOf()
+
+                    if (responseCategories.isSuccessful) {
+
+                        responseCategories.body()?.let { factsResultResponse ->
+                            for (result in factsResultResponse) {
+                                categoriesList.add(result)
+                            }
+                        }
+                        factsResult(FactsResult.Success(categoriesList))
+
+//                        factsResult(FactsResult.Success(responseCategories.body()))
+//                      categoriesList.add(responseCategories.body().toString())
+
+
+
+
+                    } else {
+                        factsResult(FactsResult.ApiError(responseCategories.code()))
+                    }
+
                 } catch (e: Exception) {
                     factsResult(FactsResult.ServerError)
                 }

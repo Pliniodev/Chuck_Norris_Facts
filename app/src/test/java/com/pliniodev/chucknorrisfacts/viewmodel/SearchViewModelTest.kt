@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
 import com.pliniodev.chucknorrisfacts.R
+import com.pliniodev.chucknorrisfacts.service.utils.FactsResult
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,8 +25,9 @@ class SearchViewModelTest {
 
     @Test
     fun `Should set validatorMsgLiveData when viewModel validate stringToValidate isEmpty`() {
-        val stringToValidate = ""
-        viewModel = SearchViewModel()
+        val stringToValidate =""
+        val mock = MockRepository(FactsResult.Success(arrayListOf()))
+        viewModel = SearchViewModel(mock)
         viewModel.validatorMsgLiveData.observeForever(validatorMsgLiveDataObserver)
 
         viewModel.validate(stringToValidate)
@@ -36,7 +38,8 @@ class SearchViewModelTest {
     @Test
     fun `Should set validatorMsgLiveData when viewModel validate stringToValidate smaller than 3`() {
         val stringToValidate = "fo"
-        viewModel = SearchViewModel()
+        val mock = MockRepository(FactsResult.Success(arrayListOf()))
+        viewModel = SearchViewModel(mock)
         viewModel.validatorMsgLiveData.observeForever(validatorMsgLiveDataObserver)
 
         viewModel.validate(stringToValidate)
@@ -47,7 +50,8 @@ class SearchViewModelTest {
     @Test
     fun `Should set validatorMsgLiveData when viewModel validate stringToValidate is Ok`() {
         val stringToValidate = "food"
-        viewModel = SearchViewModel()
+        val mock = MockRepository(FactsResult.Success(arrayListOf()))
+        viewModel = SearchViewModel(mock)
         viewModel.validatorMsgLiveData.observeForever(validatorMsgLiveDataObserver)
 
         viewModel.validate(stringToValidate)
@@ -62,7 +66,8 @@ class SearchViewModelTest {
                 " massa. Pellentesque habitant morbi tristique senectus et netus et malesuada " +
                 "fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis" +
                 "ac, posuere eu, lectus. Nam mattis, felis ut adipiscing"
-        viewModel = SearchViewModel()
+        val mock = MockRepository(FactsResult.Success(arrayListOf()))
+        viewModel = SearchViewModel(mock)
         viewModel.validatorMsgLiveData.observeForever(validatorMsgLiveDataObserver)
 
         viewModel.validate(stringToValidate)
@@ -73,7 +78,9 @@ class SearchViewModelTest {
     @Test
     fun `Should set validatorMsgLiveData when viewModel validate stringToValidate have symbols`() {
         val stringToValidate = "/~~´[]"
-        viewModel = SearchViewModel()
+
+        val mock = MockRepository(FactsResult.Success(arrayListOf()))
+        viewModel = SearchViewModel(mock)
         viewModel.validatorMsgLiveData.observeForever(validatorMsgLiveDataObserver)
 
         viewModel.validate(stringToValidate)

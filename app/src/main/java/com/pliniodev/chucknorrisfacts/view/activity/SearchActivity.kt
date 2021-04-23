@@ -26,31 +26,11 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
         observe()
         setListeners()
-        setView()
+        updateListCategories()
     }
 
-    private fun setView() {
-        //todo livedata<listof>
-        val items = listOf(
-            "Animal",
-            "Career",
-            "Celebrity",
-            "Dev",
-            "Explicit",
-            "Fashion",
-            "Food",
-            "History",
-            "Money",
-            "Movie",
-            "Music",
-            "Political",
-            "Religion",
-            "Science",
-            "Sport",
-            "Travel"
-        )//TEMPORÁRIO
-        val adapter = ArrayAdapter(this, R.layout.category_list, items)
-        (binding.editListCategory).setAdapter(adapter)
+    private fun updateListCategories() {
+        mViewModel.getListCategories()
     }
 
     override fun onBackPressed() {
@@ -68,7 +48,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setEditCategoryListener() {
-        (binding.editListCategory).setOnItemClickListener { parent, view, position, id ->
+        (binding.editListCategory).setOnItemClickListener { _, _, _, _ ->
             binding.buttonSearch.isEnabled = true
             binding.buttonSearch.setBackgroundColor(this.getColor(R.color.blue_background));
         }
@@ -112,6 +92,20 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                         binding.textInputLayoutSearch.error = getString(msgValidate)
                     }
                 }
+            }
+        })
+        mViewModel.listCategoryLiveData.observe(this, Observer { categoriesList ->
+            (binding.editListCategory).setAdapter(
+                ArrayAdapter(
+                    this,
+                    R.layout.category_list,
+                    categoriesList
+                )
+            )
+        })
+        mViewModel.errorListMsgLiveData.observe(this, Observer { errorMessage ->
+            if (errorMessage.second != null) {
+                showAlert(errorMessage.second!!)
             }
         })
     }
@@ -180,6 +174,17 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     private fun cleanSearch(search: String): String {
         //if translate is necessary check the insert Locate in toLowerCase
         return search.filter { it.isLetterOrDigit() }.toLowerCase()
+    }
+
+    private fun showAlert(errorMsg: Int) {
+
+        android.app.AlertDialog.Builder(this)
+            .setTitle(R.string.error_alert)
+            .setMessage(errorMsg)
+            .setPositiveButton(R.string.try_again) { _, _ ->
+                updateListCategories()
+            }
+            .show()
     }
 
 }

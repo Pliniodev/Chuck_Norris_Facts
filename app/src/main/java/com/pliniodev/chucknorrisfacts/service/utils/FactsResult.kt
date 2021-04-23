@@ -1,11 +1,9 @@
 package com.pliniodev.chucknorrisfacts.service.utils
 
-import com.pliniodev.chucknorrisfacts.service.model.Fact
-
-sealed class FactsResult {
-    data class Success(val successData: List<Fact>) : FactsResult()
-    data class ApiError(val statusCode: Int) : FactsResult()
-    object ConnectionError : FactsResult()
-    object ServerError : FactsResult()
+sealed class FactsResult<out T> {
+    data class Success<out T>(val successData: T ) : FactsResult<T>()
+    data class ApiError(val statusCode: Int) : FactsResult<Nothing>()
+    object ConnectionError : FactsResult<Nothing>()
+    object ServerError : FactsResult<Nothing>()
 }
 
