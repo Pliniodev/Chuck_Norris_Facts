@@ -26,6 +26,10 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
         observe()
         setListeners()
+        updateListCategories()
+    }
+
+    private fun updateListCategories() {
         mViewModel.getListCategories()
     }
 
@@ -177,9 +181,8 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         android.app.AlertDialog.Builder(this)
             .setTitle(R.string.error_alert)
             .setMessage(errorMsg)
-            .setPositiveButton(R.string.try_again) { dialog, which ->
-                mViewModel.getListCategories()
-                finish()
+            .setPositiveButton(R.string.try_again) { _, _ ->
+                updateListCategories()
             }
             .show()
     }
