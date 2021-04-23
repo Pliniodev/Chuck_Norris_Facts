@@ -44,7 +44,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setEditCategoryListener() {
-        (binding.editListCategory).setOnItemClickListener { parent, view, position, id ->
+        (binding.editListCategory).setOnItemClickListener { _, _, _, _ ->
             binding.buttonSearch.isEnabled = true
             binding.buttonSearch.setBackgroundColor(this.getColor(R.color.blue_background));
         }
@@ -91,7 +91,18 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
         mViewModel.listCategoryLiveData.observe(this, Observer { categoriesList ->
-            (binding.editListCategory).setAdapter(ArrayAdapter(this, R.layout.category_list, categoriesList))
+            (binding.editListCategory).setAdapter(
+                ArrayAdapter(
+                    this,
+                    R.layout.category_list,
+                    categoriesList
+                )
+            )
+        })
+        mViewModel.errorListMsgLiveData.observe(this, Observer { errorMessage ->
+            if (errorMessage.second != null) {
+                showAlert(errorMessage.second!!)
+            }
         })
     }
 
@@ -159,6 +170,18 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     private fun cleanSearch(search: String): String {
         //if translate is necessary check the insert Locate in toLowerCase
         return search.filter { it.isLetterOrDigit() }.toLowerCase()
+    }
+
+    private fun showAlert(errorMsg: Int) {
+
+        android.app.AlertDialog.Builder(this)
+            .setTitle(R.string.error_alert)
+            .setMessage(errorMsg)
+            .setPositiveButton(R.string.try_again) { dialog, which ->
+                mViewModel.getListCategories()
+                finish()
+            }
+            .show()
     }
 
 }
