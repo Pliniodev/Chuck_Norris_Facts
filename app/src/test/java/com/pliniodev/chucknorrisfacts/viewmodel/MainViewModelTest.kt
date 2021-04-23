@@ -9,6 +9,7 @@ import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepository
 import com.pliniodev.chucknorrisfacts.service.utils.FactsResult
 import com.pliniodev.chucknorrisfacts.viewmodel.test_utils.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,11 +34,11 @@ class MainViewModelTest {
 
     private lateinit var viewModel: MainViewModel
 
-    @ExperimentalCoroutinesApi
-    @Test
-    fun `Should set searchResultLiveData, when viewModel getByFreeSearch, get Success`() {
-        //Arrange
-        val facts = listOf(
+    private lateinit var facts: List<Fact>
+
+    @Before
+    fun setUp() {
+        facts = listOf(
             Fact(
                 categories = arrayListOf("food"),
                 created_at = "2020-01-05 13:42:18.823766",
@@ -50,6 +51,13 @@ class MainViewModelTest {
                         "didn't see him play because the episode is secret.",
             )
         )
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `Should set searchResultLiveData, when viewModel getByFreeSearch, get Success`() {
+        //Arrange
+
         val resultSuccess = MockRepository(FactsResult.Success(facts))
         viewModel = MainViewModel(resultSuccess)
         viewModel.searchResultLiveData.observeForever(searchResultLiveDataObserver)
@@ -119,19 +127,6 @@ class MainViewModelTest {
     @Test
     fun `Should set searchResultLiveData, when viewModel getByRandom, get Success`() {
         //Arrange
-        val facts = listOf(
-            Fact(
-                categories = arrayListOf("food"),
-                created_at = "2020-01-05 13:42:18.823766",
-                icon_url = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
-                id = "MjtEesffSd6AH3Pxbw7_lg",
-                updated_at = "2020-01-05 13:42:18.823766",
-                url = "https://api.chucknorris.io/jokes/MjtEesffSd6AH3Pxbw7_lg",
-                value = "When Chuck Norris played Chopped from Food Network, he finished " +
-                        "his food in 1 millisecond, and instantly wins every dish. You " +
-                        "didn't see him play because the episode is secret.",
-            )
-        )
         val resultSuccess = MockRepository(FactsResult.Success(facts))
         viewModel = MainViewModel(resultSuccess)
         viewModel.searchResultLiveData.observeForever(searchResultLiveDataObserver)
@@ -201,19 +196,6 @@ class MainViewModelTest {
     @Test
     fun `Should set searchResultLiveData, when viewModel getByCategory, get Success`() {
         //Arrange
-        val facts = listOf(
-            Fact(
-                categories = arrayListOf("food"),
-                created_at = "2020-01-05 13:42:18.823766",
-                icon_url = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
-                id = "MjtEesffSd6AH3Pxbw7_lg",
-                updated_at = "2020-01-05 13:42:18.823766",
-                url = "https://api.chucknorris.io/jokes/MjtEesffSd6AH3Pxbw7_lg",
-                value = "When Chuck Norris played Chopped from Food Network, he finished " +
-                        "his food in 1 millisecond, and instantly wins every dish. You " +
-                        "didn't see him play because the episode is secret.",
-            )
-        )
         val resultSuccess = MockRepository(FactsResult.Success(facts))
         viewModel = MainViewModel(resultSuccess)
         viewModel.searchResultLiveData.observeForever(searchResultLiveDataObserver)
@@ -280,23 +262,33 @@ class MainViewModelTest {
     }
 }
 
+class MockRepository(
+    private val result: FactsResult<List<Any>>
+) : ChuckNorrisRepository {
 
 
-
-class MockRepository(private val result: FactsResult) : ChuckNorrisRepository {
-    override suspend fun getByFreeQuery(query: String, factsResult: (result: FactsResult) -> Unit) {
-        factsResult(result)
+    override suspend fun getByFreeQuery(
+        query: String,
+        factsResult: (result: FactsResult<List<Fact>>) -> Unit
+    ) {
+        factsResult(result as FactsResult<List<Fact>>)
     }
 
     override suspend fun getByCategory(
         category: String,
-        factsResult: (result: FactsResult) -> Unit
+        factsResult: (result: FactsResult<List<Fact>>) -> Unit
     ) {
-        factsResult(result)
+        factsResult(result as FactsResult<List<Fact>>)
     }
 
-    override suspend fun getByRandom(factsResult: (result: FactsResult) -> Unit) {
-        factsResult(result)
+    override suspend fun getByRandom(factsResult: (result: FactsResult<List<Fact>>) -> Unit) {
+        factsResult(result as FactsResult<List<Fact>>)
     }
+
+    override suspend fun getCategoriesList(factsResult: (result: FactsResult<List<String>>) -> Unit) {
+        factsResult(result as FactsResult<List<String>>)
+    }
+
+
 }
 
