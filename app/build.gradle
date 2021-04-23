@@ -75,6 +75,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    //ScalarsConverter
+    implementation group: 'com.squareup.retrofit2', name: 'converter-scalars', version: '2.9.0'
+
     //koin
     implementation "org.koin:koin-android:2.2.0-alpha-1"
     implementation "org.koin:koin-androidx-scope:2.2.0-alpha-1"
