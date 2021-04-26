@@ -17,12 +17,13 @@ Consumo de Api com Retrofit, Injeção de dependências com Koin e chamadas ass�
 * [Testes unitários](https://github.com/Pliniodev/Chuck_Norris_Facts/blob/main/app/src/test/java/com/pliniodev/chucknorrisfacts/service/model/FactTest.kt)
 
 
-<h1 align="center">Andamento do projeto</h1>
+<h1 align="center">Sobre o projeto</h1>
 
 <p align="center">
  <a href="#objetivo">Objetivo</a> •
  <a href="#tecnologias">Tecnologias</a> • 
  <a href="#features">Features</a> • 
+  <a href="#licenc-a">Escolhas</a> •
  <a href="#licenc-a">Licença</a> • 
 </p>
 
