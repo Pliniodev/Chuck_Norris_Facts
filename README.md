@@ -27,6 +27,13 @@ Consumo de Api com Retrofit, Injeção de dependências com Koin e chamadas ass�
 
 <h1 align="center">Andamento do projeto</h1>
 
+### Objetivo
+
+<p align="center">
+Aprendizado - Melhorar o código de acordo com a evolução das técnicas. 
+Mostrar o meu nível técnico atual nas tecnologias utilizadas no projeto.
+</p>
+
 ### Features
 
 - [x] Consumir Api
@@ -40,7 +47,7 @@ Consumo de Api com Retrofit, Injeção de dependências com Koin e chamadas ass�
 
 - [x] Testes unitários
 - [ ] Testes instrumentados
-- [ ] Testes de UI
+- [x] Testes de UI
 
 ### 🛠 Tecnologias
 
