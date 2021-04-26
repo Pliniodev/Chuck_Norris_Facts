@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.pliniodev.chucknorrisfacts.R
@@ -178,7 +179,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun showAlert(errorMsg: Int) {
 
-        android.app.AlertDialog.Builder(this)
+       AlertDialog.Builder(this)
             .setTitle(R.string.error_alert)
             .setMessage(errorMsg)
             .setPositiveButton(R.string.try_again) { _, _ ->

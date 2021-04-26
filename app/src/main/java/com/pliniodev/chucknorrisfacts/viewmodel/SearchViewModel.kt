@@ -40,11 +40,11 @@ class SearchViewModel(
                     }
                     is FactsResult.ConnectionError ->
                         errorListMsgLiveData.postValue(Pair(Constants.RESULT_ERROR,
-                            R.string.facts_error_server_error)
+                            R.string.facts_error_lost_connection)
                     )
                     is FactsResult.ServerError ->
                         errorListMsgLiveData.postValue(Pair(Constants.RESULT_ERROR,
-                            R.string.facts_error_lost_connection))
+                            R.string.facts_error_server_error))
                 }
             }
         }

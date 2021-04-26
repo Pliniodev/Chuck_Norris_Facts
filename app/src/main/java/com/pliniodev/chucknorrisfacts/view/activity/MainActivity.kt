@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,17 +14,20 @@ import com.bumptech.glide.Glide
 import com.pliniodev.chucknorrisfacts.R
 import com.pliniodev.chucknorrisfacts.constants.Constants
 import com.pliniodev.chucknorrisfacts.databinding.ActivityMainBinding
+import com.pliniodev.chucknorrisfacts.service.utils.CheckNetworkConnection.isOnline
 import com.pliniodev.chucknorrisfacts.view.adapter.FactsAdapter
 import com.pliniodev.chucknorrisfacts.view.listener.FactsListener
 import com.pliniodev.chucknorrisfacts.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), FactsListener {
+class MainActivity : AppCompatActivity() {
 
     private val mViewModel: MainViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
     private lateinit var mAdapter: FactsAdapter
     private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mListener: FactsListener
+    private var mUrlMessage = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,23 +36,51 @@ class MainActivity : AppCompatActivity(), FactsListener {
 
         setView()
         observe()
+        setListeners()
+        mAdapter.attachListener(mListener)
+    }
+
+    private fun checkConnection(){
+        if (isOnline(this)){
+            checkBundle()
+        } else {
+            showAlert(R.string.facts_error_lost_connection)
+        }
     }
 
     override fun onResume() {
         super.onResume()
+        if(isOnline(this)){
+            checkBundle()
+        } else {
+            showAlert(R.string.facts_error_lost_connection)
+        }
+    }
+
+    private fun checkBundle() {
         val bundle = intent.extras
-        if (bundle != null) {
-            loadData(bundle)
+        if (bundle != null && mUrlMessage == "") {
+            setExtras(bundle)
+        } else if (bundle != null && mUrlMessage != "") {
+            mUrlMessage = ""
         } else {
             binding.viewFlipperFacts.displayedChild = VIEW_HELLO_HELP
         }
     }
 
-    private fun loadData(bundle: Bundle) {
+    private fun setExtras(bundle: Bundle) {
         val message = bundle.getString(Constants.SEARCH_MESSAGE)
         val isSearchByRandom = bundle.getBoolean(Constants.IS_SEARCH_BY_RANDOM)
         val isSearchByCategory = bundle.getBoolean(Constants.IS_SEARCH_BY_CATEGORY)
 
+        checkExtras(isSearchByCategory, isSearchByRandom, message)
+    }
+
+    private fun checkExtras(
+        isSearchByCategory: Boolean,
+        isSearchByRandom: Boolean,
+        message: String?
+    ) {
         when {
             !isSearchByCategory && !isSearchByRandom -> {
                 if (message != null) {
@@ -71,6 +103,7 @@ class MainActivity : AppCompatActivity(), FactsListener {
             }
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -114,6 +147,10 @@ class MainActivity : AppCompatActivity(), FactsListener {
                 }
             }
         })
+
+        mViewModel.connectionErrorLiveData.observe(this, Observer {
+            showAlert(it.first)
+        })
     }
 
     private fun setView() {
@@ -130,7 +167,7 @@ class MainActivity : AppCompatActivity(), FactsListener {
     }
 
     private fun setAdapter() {
-        mAdapter = FactsAdapter(this@MainActivity, this)
+        mAdapter = FactsAdapter(this@MainActivity)
         mRecyclerView = binding.root.findViewById(R.id.facts_recycler)
         mRecyclerView.layoutManager = LinearLayoutManager(
             this@MainActivity, LinearLayoutManager.VERTICAL, false
@@ -138,15 +175,31 @@ class MainActivity : AppCompatActivity(), FactsListener {
         mRecyclerView.adapter = mAdapter
     }
 
-    override fun onClickShareImage(url: String) {
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, url)
-            type = "text/plain"
-        }
+    private fun setListeners() {
+        mListener = object : FactsListener {
+            override fun onClickShareImage(url: String) {
+                val sendIntent: Intent = Intent().apply {
+                    mUrlMessage = url
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, mUrlMessage)
+                    type = "text/plain"
+                }
 
-        val shareIntent = Intent.createChooser(sendIntent, "URL")
-        startActivity(shareIntent)
+                val shareIntent = Intent.createChooser(sendIntent, "Share URL of this Joke!")
+                startActivity(shareIntent)
+            }
+        }
+    }
+
+    private fun showAlert(errorMsg: Int) {
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.error_alert)
+            .setMessage(errorMsg)
+            .setPositiveButton(R.string.try_again) { _, _ ->
+                checkConnection()
+            }
+            .show()
     }
 
     companion object {

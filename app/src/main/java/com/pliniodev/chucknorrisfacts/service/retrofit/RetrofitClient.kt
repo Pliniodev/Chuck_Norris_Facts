@@ -1,8 +1,9 @@
 package com.pliniodev.chucknorrisfacts.service.retrofit
 
-import com.pliniodev.chucknorrisfacts.BuildConfig.DEBUG
+//import com.pliniodev.chucknorrisfacts.BuildConfig.DEBUG
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,7 +19,7 @@ internal fun provideOkHttpClient(): OkHttpClient {
         .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
         .readTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
 
-    if (DEBUG) {
+    if (BuildConfig.DEBUG) {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
         client.addInterceptor(logging)

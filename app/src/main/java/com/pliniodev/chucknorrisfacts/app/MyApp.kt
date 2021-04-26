@@ -1,4 +1,4 @@
-package com.pliniodev.chucknorrisfacts
+package com.pliniodev.chucknorrisfacts.app
 
 import android.app.Application
 import com.pliniodev.chucknorrisfacts.di.*
@@ -11,21 +11,18 @@ open class MyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        initiateKoin()
+    }
 
+    private fun initiateKoin() {
         startKoin {
-            /**
-             * (Level.NONE) foi usado devido a este bug na versão 2.0.0 do koin
-             * --> No virtual method elapsedNow()D in class Lkotlin/time/TimeMark...
-             * ISSUE relacionada https://github.com/InsertKoinIO/koin/issues/847
-             * parece ter sido resolvido na versão 2.2.0-alpha-1
-             */
             androidLogger()
             androidContext(this@MyApp)
 
             modules(
                 uiModule,
                 remoteModule,
-                repositoryModule
+                repositoryModule,
             )
         }
     }

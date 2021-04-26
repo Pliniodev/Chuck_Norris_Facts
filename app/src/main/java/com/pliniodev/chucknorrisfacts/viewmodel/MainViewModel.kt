@@ -1,5 +1,6 @@
 package com.pliniodev.chucknorrisfacts.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,6 +21,8 @@ class MainViewModel(
     val searchResultLiveData = MutableLiveData<List<Fact>>()
 
     val viewFlipperLiveData = MutableLiveData<Pair<Int, Int?>>()
+
+    val connectionErrorLiveData = MutableLiveData<Pair<Int, Boolean>>()
 
     fun getByFreeSearch(query: String) {
         viewModelScope.launch {
@@ -61,10 +64,8 @@ class MainViewModel(
                     R.string.facts_error_server_error))
             }
             is FactsResult.ConnectionError -> {
-                viewFlipperLiveData.postValue(
-                    Pair(Constants.VIEW_FLIPPER_ERROR,
-                    R.string.facts_error_lost_connection)
-                )
+                connectionErrorLiveData.postValue((Pair(R.string.facts_error_lost_connection,
+                    true)))
             }
         }
     }
