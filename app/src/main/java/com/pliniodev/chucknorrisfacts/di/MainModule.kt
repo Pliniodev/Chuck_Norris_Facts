@@ -19,9 +19,9 @@ val remoteModule = module {
     single { createApi<ChuckNorrisApi>(get()) }
 }
 
-
 val repositoryModule = module {
-    single<ChuckNorrisRepository> { ChuckNorrisRepositoryImpl(get(), get()) }
+
+    single<ChuckNorrisRepository> { ChuckNorrisRepositoryImpl(get()) }
 }
 
 val uiModule = module {
