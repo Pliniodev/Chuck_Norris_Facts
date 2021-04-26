@@ -17,15 +17,16 @@ Consumo de Api com Retrofit, Injeção de dependências com Koin e chamadas ass�
 * [Testes unitários](https://github.com/Pliniodev/Chuck_Norris_Facts/blob/main/app/src/test/java/com/pliniodev/chucknorrisfacts/service/model/FactTest.kt)
 
 
+<h1 align="center">Andamento do projeto</h1>
+
 <p align="center">
  <a href="#objetivo">Objetivo</a> •
  <a href="#tecnologias">Tecnologias</a> • 
  <a href="#features">Features</a> • 
  <a href="#licenc-a">Licença</a> • 
- <a href="#autor">Autor</a>
 </p>
 
-<h1 align="center">Andamento do projeto</h1>
+-----------
 
 ### Objetivo
 
@@ -49,7 +50,7 @@ Mostrar o meu nível técnico atual nas tecnologias utilizadas no projeto.
 - [ ] Testes instrumentados
 - [x] Testes de UI
 
-### 🛠 Tecnologias
+### Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
