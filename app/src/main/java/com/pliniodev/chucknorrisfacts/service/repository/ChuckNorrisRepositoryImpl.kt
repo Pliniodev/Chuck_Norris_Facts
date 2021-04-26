@@ -8,11 +8,13 @@ import com.pliniodev.chucknorrisfacts.service.utils.FactsResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import org.koin.java.KoinJavaComponent.inject
 
 class ChuckNorrisRepositoryImpl(
-    private val context: Context,
     private val api: ChuckNorrisApi
 ) : ChuckNorrisRepository {
+
+    private val context: Context by inject(Context::class.java)
 
     override suspend fun getByFreeQuery(
         query: String,
@@ -130,12 +132,6 @@ class ChuckNorrisRepositoryImpl(
                             }
                         }
                         factsResult(FactsResult.Success(categoriesList))
-
-//                        factsResult(FactsResult.Success(responseCategories.body()))
-//                      categoriesList.add(responseCategories.body().toString())
-
-
-
 
                     } else {
                         factsResult(FactsResult.ApiError(responseCategories.code()))
