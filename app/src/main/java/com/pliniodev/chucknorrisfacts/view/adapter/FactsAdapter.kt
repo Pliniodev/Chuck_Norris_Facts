@@ -14,9 +14,9 @@ import com.pliniodev.chucknorrisfacts.view.listener.FactsListener
 
 class FactsAdapter(
     val context: Context,
-    val listener: FactsListener
 ) : RecyclerView.Adapter<FactsAdapter.FactsViewHolder>() {
 
+    private lateinit var mListener: FactsListener
     private var mFactModelList: List<Fact> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FactsViewHolder {
@@ -38,7 +38,15 @@ class FactsAdapter(
 
     fun setFacts(facts: List<Fact>) {
         this.mFactModelList = facts
+        updateList()
+    }
+
+    fun updateList(){
         notifyDataSetChanged()
+    }
+
+    fun attachListener(listener: FactsListener) {
+        mListener = listener
     }
 
     inner class FactsViewHolder(
@@ -60,7 +68,7 @@ class FactsAdapter(
             textValue.text = fact.value
             textCategory.text = fact.getCategory
             imageShare.setOnClickListener {
-                listener.onClickShareImage(fact.url)
+                mListener.onClickShareImage(fact.url)
             }
         }
     }
