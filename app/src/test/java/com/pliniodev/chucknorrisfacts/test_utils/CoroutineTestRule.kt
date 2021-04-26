@@ -1,4 +1,4 @@
-package com.pliniodev.chucknorrisfacts.viewmodel.test_utils
+package com.pliniodev.chucknorrisfacts.test_utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

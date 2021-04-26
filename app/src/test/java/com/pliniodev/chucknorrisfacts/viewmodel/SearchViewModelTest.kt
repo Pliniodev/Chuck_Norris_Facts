@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
 import com.pliniodev.chucknorrisfacts.R
 import com.pliniodev.chucknorrisfacts.service.utils.FactsResult
+import com.pliniodev.chucknorrisfacts.test_utils.MockRepository
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
