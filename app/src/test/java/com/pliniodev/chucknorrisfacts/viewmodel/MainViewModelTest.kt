@@ -77,7 +77,7 @@ class MainViewModelTest {
 
         viewModel.getByFreeSearch(query = "fo")
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_404))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_404))
     }
 
     @Test
@@ -88,7 +88,7 @@ class MainViewModelTest {
 
         viewModel.getByFreeSearch(query = "fo")
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_400))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_400))
     }
 
     @Test
@@ -99,7 +99,7 @@ class MainViewModelTest {
 
         viewModel.getByFreeSearch(query = "fo")
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_generic))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_generic))
     }
 
     @Test
@@ -110,7 +110,7 @@ class MainViewModelTest {
 
         viewModel.getByFreeSearch(query = "fo")
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_server_error))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_server))
     }
 
     @Test
@@ -134,7 +134,7 @@ class MainViewModelTest {
 
         viewModel.getByRandom()
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_404))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_404))
     }
 
     @Test
@@ -145,7 +145,7 @@ class MainViewModelTest {
 
         viewModel.getByRandom()
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_400))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_400))
     }
 
     @Test
@@ -156,7 +156,7 @@ class MainViewModelTest {
 
         viewModel.getByRandom()
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_generic))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_generic))
     }
 
     @Test
@@ -167,7 +167,7 @@ class MainViewModelTest {
 
         viewModel.getByRandom()
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_server_error))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_server))
     }
 
     @Test
@@ -191,7 +191,7 @@ class MainViewModelTest {
 
         viewModel.getByCategory("food")
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_404))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_404))
     }
 
     @Test
@@ -202,7 +202,7 @@ class MainViewModelTest {
 
         viewModel.getByCategory("food")
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_400))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_400))
     }
 
     @Test
@@ -213,7 +213,7 @@ class MainViewModelTest {
 
         viewModel.getByCategory("food")
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_generic))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_generic))
     }
 
 
@@ -225,7 +225,7 @@ class MainViewModelTest {
 
         viewModel.getByCategory("food")
 
-        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.facts_error_server_error))
+        verify(viewFlipperLiveDataObserver).onChanged(Pair(3, R.string.error_server))
     }
 }
 

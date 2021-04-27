@@ -1,43 +1,44 @@
 <resources>
+    <!--App-->
     <string name="app_name">Chuck Norris Facts</string>
-    <string name="category">Category</string>
-    <string name="fact">Fact</string>
-    <string name="search">Search</string>
-
-
-    <!--Retrofit-->
-    <string name="BASE_URL">https://api.chucknorris.io/</string>
+    <string name="app_category">Category</string>
+    <string name="app_fact">Fact</string>
+    <string name="app_search">Search</string>
 
     <!--Errors-->
-    <string name="facts_error_400">Invalid search! \nSize of search must be between 3 and 120</string>
-    <string name="facts_error_404">Have no jokes for this search! \n C\'mon Try again!</string>
-    <string name="facts_error_generic">Sorry for that, try search some other thing!</string>
-    <string name="facts_error_server_error">Server is crazy. \nTry again in some minutes.</string>
-    <string name="facts_error_lost_connection">Please check your connection!</string>
+    <string name="error_400">Invalid search! \nSize of search must be between 3 and 120</string>
+    <string name="error_404">Have no jokes for this search! \n C\'mon Try again!</string>
+    <string name="error_generic">Sorry for that, try search some other thing!</string>
+    <string name="error_server">Server is crazy. \nTry again in some minutes.</string>
+    <string name="error_lost_connection">Please check your connection!</string>
+    <string name="error_empty_search">This search return\'s nothing! Try again!</string>
+    <string name="error_alert">Connection Lost!</string>
 
     <!--Preview lorem-->
     <string name="Preview">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
         do eiusmod tempor incididunt</string>
 
-    <!--SearchActivity-->
-    <string name="search_a_fact_about_chuck_norris">Search a fact about Chuck Norris</string>
-    <string name="you_need_search">You need to search something!</string>
-    <string name="yeah_its_a_search">Yeah! Its a search.</string>
-    <string name="max_search_characters">Max.120 characters.</string>
-    <string name="min_search_characters">Min. 3 characters.</string>
+    <!--Info-->
+    <string name="info_you_need_search">You need to search something!</string>
+    <string name="info_yeah_its_a_search">Yeah! Its a search.</string>
+    <string name="info_max_search_characters">Max.120 characters.</string>
+    <string name="info_min_search_characters">Min. 3 characters.</string>
+    <string name="info_do_the_search">C\'mon search something!</string>
+    <string name="info_no_symbols">No symbols, just letter or numbers ok?</string>
 
-    <string name="do_the_search">C\'mon search something!</string>
-    <string name="no_symbols">No symbols, just letter or numbers ok?</string>
-    <string name="hello_help_text">Hey! Welcome! \nDo a search, and see the magic happens!</string>
-    <string name="new_search_question">Do you want to hear a joke?</string>
-    <string name="empty_search">This search return\'s nothing! Try again!</string>
-    <string name="error_alert">Connection Lost!</string>
+    <!--Title-->
+    <string name="title_search_a_fact">Search a fact about Chuck Norris</string>
+    <string name="title_hello_help_text">Hey! Welcome! \nDo a search, and see the magic happens!</string>
+    <string name="title_new_search_question">Do you want to hear a joke?</string>
+    <string name="title_what_do_you_prefer">What do you prefer?</string>
 
-    <string name="try_again">Try again!</string>
-    <string name="what_do_you_prefer">What do you prefer?</string>
-    <string name="give_me_a_random_joke">Give me a random Joke!</string>
-    <string name="i_want_a_random_by_a_category">I want a random joke of category:</string>
-    <string name="let_me_free_to_search">Let me free to search!</string>
-    <string name="place_to_select_categories">place to select categories</string>
+    <!--Action-->
+    <string name="action_try_again">Try again!</string>
+    <string name="action_give_me_a_random_joke">Give me a random Joke!</string>
+    <string name="action_i_want_a_random_by_a_category">I want a random joke of category:</string>
+    <string name="action_let_me_free_to_search">Let me free to search!</string>
+
+    <!--Required-->
+    <string name="required_place_to_select_categories">place to select categories</string>
 
 </resources>

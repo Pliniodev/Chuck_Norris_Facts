@@ -33,7 +33,7 @@ class SearchViewModelTest {
 
         viewModel.validate(stringToValidate)
 
-        verify(validatorMsgLiveDataObserver).onChanged(Pair(false, R.string.you_need_search))
+        verify(validatorMsgLiveDataObserver).onChanged(Pair(false, R.string.info_you_need_search))
     }
 
     @Test
@@ -45,7 +45,7 @@ class SearchViewModelTest {
 
         viewModel.validate(stringToValidate)
 
-        verify(validatorMsgLiveDataObserver).onChanged(Pair(false, R.string.min_search_characters))
+        verify(validatorMsgLiveDataObserver).onChanged(Pair(false, R.string.info_min_search_characters))
     }
 
     @Test
@@ -57,7 +57,7 @@ class SearchViewModelTest {
 
         viewModel.validate(stringToValidate)
 
-        verify(validatorMsgLiveDataObserver).onChanged(Pair(true, R.string.yeah_its_a_search))
+        verify(validatorMsgLiveDataObserver).onChanged(Pair(true, R.string.info_yeah_its_a_search))
     }
 
     @Test
@@ -73,7 +73,7 @@ class SearchViewModelTest {
 
         viewModel.validate(stringToValidate)
 
-        verify(validatorMsgLiveDataObserver).onChanged(Pair(false, R.string.max_search_characters))
+        verify(validatorMsgLiveDataObserver).onChanged(Pair(false, R.string.info_max_search_characters))
     }
 
     @Test
@@ -86,6 +86,6 @@ class SearchViewModelTest {
 
         viewModel.validate(stringToValidate)
 
-        verify(validatorMsgLiveDataObserver).onChanged(Pair(false, R.string.no_symbols))
+        verify(validatorMsgLiveDataObserver).onChanged(Pair(false, R.string.info_no_symbols))
     }
 }

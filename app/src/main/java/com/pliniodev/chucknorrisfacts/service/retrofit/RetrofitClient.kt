@@ -1,6 +1,5 @@
 package com.pliniodev.chucknorrisfacts.service.retrofit
 
-//import com.pliniodev.chucknorrisfacts.BuildConfig.DEBUG
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.BuildConfig

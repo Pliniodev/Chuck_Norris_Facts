@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         if (isOnline(this)){
             checkBundle()
         } else {
-            showAlert(R.string.facts_error_lost_connection)
+            showAlert(R.string.error_lost_connection)
         }
     }
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         if(isOnline(this)){
             checkBundle()
         } else {
-            showAlert(R.string.facts_error_lost_connection)
+            showAlert(R.string.error_lost_connection)
         }
     }
 
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                     mViewModel.getByFreeSearch(message)
                     binding.viewFlipperFacts.displayedChild = MY_PROGRESSBAR
                 } else {
-                    binding.textHelp.text = getString(R.string.new_search_question)
+                    binding.textHelp.text = getString(R.string.title_new_search_question)
                     binding.viewFlipperFacts.displayedChild = VIEW_HELLO_HELP
                 }
             }
@@ -196,7 +196,7 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(R.string.error_alert)
             .setMessage(errorMsg)
-            .setPositiveButton(R.string.try_again) { _, _ ->
+            .setPositiveButton(R.string.action_try_again) { _, _ ->
                 checkConnection()
             }
             .show()

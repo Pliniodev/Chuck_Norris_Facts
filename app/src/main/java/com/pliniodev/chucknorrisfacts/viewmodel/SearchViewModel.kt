@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pliniodev.chucknorrisfacts.R
 import com.pliniodev.chucknorrisfacts.constants.Constants
-import com.pliniodev.chucknorrisfacts.service.model.Fact
 import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepository
 import com.pliniodev.chucknorrisfacts.service.utils.onError
 import com.pliniodev.chucknorrisfacts.service.utils.FactsResult
@@ -40,11 +39,11 @@ class SearchViewModel(
                     }
                     is FactsResult.ConnectionError ->
                         errorListMsgLiveData.postValue(Pair(Constants.RESULT_ERROR,
-                            R.string.facts_error_lost_connection)
+                            R.string.error_lost_connection)
                     )
                     is FactsResult.ServerError ->
                         errorListMsgLiveData.postValue(Pair(Constants.RESULT_ERROR,
-                            R.string.facts_error_server_error))
+                            R.string.error_server))
                 }
             }
         }

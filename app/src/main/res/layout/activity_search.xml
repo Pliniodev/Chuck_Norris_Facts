@@ -16,7 +16,7 @@
         android:layout_marginEnd="@dimen/search_textview_marginend_16dp"
         android:background="@drawable/shape_info_views"
         android:padding="@dimen/search_textview_padding_30dp"
-        android:text="@string/search_a_fact_about_chuck_norris"
+        android:text="@string/title_search_a_fact"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/search_textview_textsize_18sp"
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/search_textview_marginbottom_16dp"
-            android:text="@string/what_do_you_prefer"
+            android:text="@string/title_what_do_you_prefer"
             android:textColor="@color/black"
             android:textSize="@dimen/search_textview_textsize_24sp" />
 
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:buttonTint="@color/blue_background"
             android:textColor="@color/black"
-            android:text="@string/give_me_a_random_joke"
+            android:text="@string/action_give_me_a_random_joke"
             android:textSize="@dimen/search_radiobutton_textsize_18sp" />
 
         <RadioButton
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:buttonTint="@color/blue_background"
-            android:text="@string/i_want_a_random_by_a_category"
+            android:text="@string/action_i_want_a_random_by_a_category"
             android:textSize="@dimen/search_radiobutton_textsize_18sp" />
 
         <RadioButton
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:buttonTint="@color/blue_background"
-            android:text="@string/let_me_free_to_search"
+            android:text="@string/action_let_me_free_to_search"
             android:textSize="@dimen/search_radiobutton_textsize_18sp" />
 
     </RadioGroup>
@@ -95,7 +95,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/category"
+            android:hint="@string/app_category"
             android:orientation="vertical"
             android:visibility="invisible">
 
@@ -104,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/search_autocompletetext_marginbottom_16dp"
-                android:contentDescription="@string/place_to_select_categories"
+                android:contentDescription="@string/required_place_to_select_categories"
                 android:dropDownHeight="@dimen/search_autocompletetext_dropdownheight_180dp"
                 android:inputType="none" />
 
@@ -133,7 +133,7 @@
                 android:id="@+id/edit_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/search"
+                android:hint="@string/app_search"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,7 +145,7 @@
             android:backgroundTint="@color/button_unabled"
             android:enabled="false"
             android:padding="@dimen/search_button_padding_16dp"
-            android:text="@string/search"
+            android:text="@string/app_search"
             android:textSize="@dimen/search_button_textsize_20dp"
             android:textStyle="bold" />
     </LinearLayout>

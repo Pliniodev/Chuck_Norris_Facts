@@ -140,7 +140,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
                 binding.dropmenuCategory.visibility = View.GONE
 
-                binding.textInputLayoutSearch.helperText = getString(R.string.do_the_search)
+                binding.textInputLayoutSearch.helperText = getString(R.string.info_do_the_search)
                 binding.layoutToWriteMsg.visibility = View.VISIBLE
                 binding.textInputLayoutSearch.visibility = View.VISIBLE
             }
@@ -182,7 +182,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
        AlertDialog.Builder(this)
             .setTitle(R.string.error_alert)
             .setMessage(errorMsg)
-            .setPositiveButton(R.string.try_again) { _, _ ->
+            .setPositiveButton(R.string.action_try_again) { _, _ ->
                 updateListCategories()
             }
             .show()
