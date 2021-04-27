@@ -4,19 +4,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
+    android:layout_marginBottom="@dimen/item_layout_recyclerview_marginbottom_4dp"
     android:background="@drawable/shape_item_recycler">
 
     <TextView
         android:id="@+id/text_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/item_recyclerview_textview_marginstart_16dp"
+        android:layout_marginEnd="@dimen/item_recyclerview_textview_marginend_16dp"
+        android:layout_marginTop="@dimen/item_recyclerview_textview_margintop_16dp"
         android:text="@string/fact"
         android:textColor="@color/black"
-        android:textSize="@dimen/bigtext_recyclerview_28sp"
+        android:textSize="@dimen/item_recyclerview_fontsize_28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -25,14 +25,14 @@
         android:id="@+id/text_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="@dimen/item_recyclerview_textview_marginstart_16dp"
+        android:layout_marginTop="@dimen/item_recyclerview_textview_margintop_16dp"
+        android:layout_marginBottom="@dimen/item_recyclerview_textview_marginbottom_16dp"
         android:background="@color/blue_background"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
+        android:paddingStart="@dimen/item_recyclerview_textview_paddingstart_8dp"
+        android:paddingEnd="@dimen/item_recyclerview_textview_paddingend_8dp"
+        android:paddingTop="@dimen/item_recyclerview_textview_paddingtop_4dp"
+        android:paddingBottom="@dimen/item_recyclerview_textview_paddingbottom_4dp"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -44,16 +44,12 @@
 
     <ImageView
         android:id="@+id/image_share"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/item_recyclerview_imageview_width_32dp"
+        android:layout_height="@dimen/item_recyclerview_imageview_height_32dp"
+        android:layout_marginEnd="@dimen/item_recyclerview_imageview_marginend_16dp"
         android:src="@drawable/ic_share"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_value"
         app:tint="@color/black" />
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
