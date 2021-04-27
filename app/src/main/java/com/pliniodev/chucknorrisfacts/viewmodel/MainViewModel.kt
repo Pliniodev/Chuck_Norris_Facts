@@ -1,13 +1,10 @@
 package com.pliniodev.chucknorrisfacts.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pliniodev.chucknorrisfacts.R
 import com.pliniodev.chucknorrisfacts.constants.Constants
-import com.pliniodev.chucknorrisfacts.data.response.FactBodyResponse
-import com.pliniodev.chucknorrisfacts.data.response.FactDetailsResponse
 import com.pliniodev.chucknorrisfacts.service.model.Fact
 import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepository
 import com.pliniodev.chucknorrisfacts.service.utils.FactsResult
@@ -50,7 +47,7 @@ class MainViewModel(
         when (result) {
             is FactsResult.Success -> {
                 if (result.successData.isEmpty()){
-                    viewFlipperLiveData.postValue(Pair(Constants.VIEW_FLIPPER_SEARCH_IS_EMPTY, R.string.empty_search))
+                    viewFlipperLiveData.postValue(Pair(Constants.VIEW_FLIPPER_SEARCH_IS_EMPTY, R.string.error_empty_search))
                 } else {
                     searchResultLiveData.postValue(result.successData!!)
                     viewFlipperLiveData.postValue(Pair(Constants.VIEW_FLIPPER_FACTS, null))
@@ -61,10 +58,10 @@ class MainViewModel(
             }
             is FactsResult.ServerError -> {
                 viewFlipperLiveData.postValue(Pair(Constants.VIEW_FLIPPER_ERROR,
-                    R.string.facts_error_server_error))
+                    R.string.error_server))
             }
             is FactsResult.ConnectionError -> {
-                connectionErrorLiveData.postValue((Pair(R.string.facts_error_lost_connection,
+                connectionErrorLiveData.postValue((Pair(R.string.error_lost_connection,
                     true)))
             }
         }

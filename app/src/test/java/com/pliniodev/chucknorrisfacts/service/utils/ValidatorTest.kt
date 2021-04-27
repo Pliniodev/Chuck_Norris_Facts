@@ -16,7 +16,7 @@ class ValidatorTest{
         val search = ""
         val result = Validator.validateSearchText(search)
 
-        val resultSucess = Pair(false, R.string.you_need_search)
+        val resultSucess = Pair(false, R.string.info_you_need_search)
 
         assertEquals(resultSucess,result)
     }
@@ -26,7 +26,7 @@ class ValidatorTest{
         val search = "fo"
         val result = Validator.validateSearchText(search)
 
-        val resultSucess = Pair(false, R.string.min_search_characters)
+        val resultSucess = Pair(false, R.string.info_min_search_characters)
 
         assertEquals(resultSucess,result)
     }
@@ -36,7 +36,7 @@ class ValidatorTest{
         val search = "food"
         val result = Validator.validateSearchText(search)
 
-        val resultSucess = Pair(true, R.string.yeah_its_a_search)
+        val resultSucess = Pair(true, R.string.info_yeah_its_a_search)
 
         assertEquals(resultSucess, result)
     }
@@ -48,7 +48,7 @@ class ValidatorTest{
                 "didn't see him play because the episode is secret."
         val result = Validator.validateSearchText(search)
 
-        val resultSucess = Pair(false, R.string.max_search_characters)
+        val resultSucess = Pair(false, R.string.info_max_search_characters)
 
         assertEquals(resultSucess, result)
     }
@@ -58,7 +58,7 @@ class ValidatorTest{
         val search = "[]/~.,"
         val result = Validator.validateSearchText(search)
 
-        val resultSucess = Pair(false, R.string.no_symbols)
+        val resultSucess = Pair(false, R.string.info_no_symbols)
 
         assertEquals(resultSucess,result)
     }

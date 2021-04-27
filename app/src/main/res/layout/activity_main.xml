@@ -35,7 +35,7 @@
                 android:id="@+id/text_help"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/hello_help_text"
+                android:text="@string/title_hello_help_text"
                 android:textAlignment="center"
                 android:elevation="@dimen/main_textview_elevation_6dp"
                 android:padding="@dimen/main_textview_padding_10dp"
