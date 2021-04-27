@@ -20,6 +20,7 @@ Consumo de Api com Retrofit, Injeção de dependências com Koin e chamadas ass�
 <h1 align="center">Sobre o projeto</h1>
 
 <p align="center">
+ <a href="#objetivo">Instalação</a> •
  <a href="#objetivo">Objetivo</a> •
  <a href="#tecnologias">Tecnologias</a> • 
  <a href="#features">Features</a> • 
@@ -27,6 +28,12 @@ Consumo de Api com Retrofit, Injeção de dependências com Koin e chamadas ass�
  <a href="#licenc-a">Licença</a> • 
 </p>
 
+### Instalação
+
+Clone o repositório para sua máquina local e importe para o Android Studio
+```bash
+$ git clone https://github.com/Pliniodev/Chuck_Norris_Facts.git
+```
 -----------
 
 ### Objetivo
