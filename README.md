@@ -48,7 +48,7 @@ Mostrar o meu nível técnico atual nas tecnologias utilizadas no projeto.
 ### Testes
 
 - [x] Testes unitários
-- [ ] Testes instrumentados
+- [x] Testes instrumentados
 - [x] Testes de UI
 
 ### Tecnologias
