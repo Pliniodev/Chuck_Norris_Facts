@@ -21,7 +21,7 @@ class FactsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FactsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.facts_details,
+            R.layout.item_facts_details,
             parent,
             false
         )
@@ -62,7 +62,7 @@ class FactsAdapter(
             if (fact.isLongText) {
                 textValue.setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,
-                    context.resources.getDimension(R.dimen.smalltext_recyclerview_18sp)
+                    context.resources.getDimension(R.dimen.item_recyclerview_fontsize_18sp)
                 )
             }
             textValue.text = fact.value

@@ -40,6 +40,13 @@ android {
     testOptions {
         animationsDisabled = true
     }
+    sourceSets {
+        main {
+            res {
+                srcDirs 'src\\main\\res', 'src\\main\\res\\shapes\\res', 'src\\main\\res\\shapes'
+            }
+        }
+    }
 }
 
 dependencies {

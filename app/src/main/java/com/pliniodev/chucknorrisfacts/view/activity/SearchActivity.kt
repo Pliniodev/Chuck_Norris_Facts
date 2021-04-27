@@ -99,7 +99,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
             (binding.editListCategory).setAdapter(
                 ArrayAdapter(
                     this,
-                    R.layout.category_list,
+                    R.layout.dropdown_category_list,
                     categoriesList
                 )
             )

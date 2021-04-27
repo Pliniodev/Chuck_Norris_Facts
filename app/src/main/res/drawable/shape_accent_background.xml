@@ -7,7 +7,7 @@
                 android:color="@color/blue_background"
                 />
             <corners
-                android:radius="4dp"
+                android:radius="8dp"
                 />
         </shape>
     </item>
