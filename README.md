@@ -24,7 +24,6 @@ Consumo de Api com Retrofit, Injeção de dependências com Koin e chamadas ass�
  <a href="#objetivo">Objetivo</a> •
  <a href="#tecnologias">Tecnologias</a> • 
  <a href="#features">Features</a> • 
-  <a href="#licenc-a">Escolhas</a> •
  <a href="#licenc-a">Licença</a> • 
 </p>
 
