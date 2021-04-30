@@ -9,7 +9,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.IOException
 
-class SafeApiCallTest{
+class SafeApiCallTest {
 
     @ExperimentalCoroutinesApi
     private val dispatcher = TestCoroutineDispatcher()
@@ -23,7 +23,7 @@ class SafeApiCallTest{
         runBlockingTest {
             val lambdaResult = true
             val result = safeApiCall(dispatcher) { lambdaResult }
-            assertEquals(FactsResult.Success(lambdaResult),result)
+            assertEquals(FactsResult.Success(lambdaResult), result)
         }
     }
 

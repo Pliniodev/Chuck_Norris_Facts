@@ -26,7 +26,7 @@ class SearchViewModelTest {
 
     @Test
     fun `Should set validatorMsgLiveData when viewModel validate stringToValidate isEmpty`() {
-        val stringToValidate =""
+        val stringToValidate = ""
         val mock = MockRepository(FactsResult.Success(arrayListOf()))
         viewModel = SearchViewModel(mock)
         viewModel.validatorMsgLiveData.observeForever(validatorMsgLiveDataObserver)
@@ -45,7 +45,12 @@ class SearchViewModelTest {
 
         viewModel.validate(stringToValidate)
 
-        verify(validatorMsgLiveDataObserver).onChanged(Pair(false, R.string.info_min_search_characters))
+        verify(validatorMsgLiveDataObserver).onChanged(
+            Pair(
+                false,
+                R.string.info_min_search_characters
+            )
+        )
     }
 
     @Test
@@ -73,7 +78,12 @@ class SearchViewModelTest {
 
         viewModel.validate(stringToValidate)
 
-        verify(validatorMsgLiveDataObserver).onChanged(Pair(false, R.string.info_max_search_characters))
+        verify(validatorMsgLiveDataObserver).onChanged(
+            Pair(
+                false,
+                R.string.info_max_search_characters
+            )
+        )
     }
 
     @Test

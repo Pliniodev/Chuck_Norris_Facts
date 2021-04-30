@@ -2,37 +2,37 @@ package com.pliniodev.chucknorrisfacts.service.utils
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.pliniodev.chucknorrisfacts.R
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
-class ValidatorTest{
+class ValidatorTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
     @Test
-    fun whenIsEmpty(){
+    fun whenIsEmpty() {
         val search = ""
         val result = Validator.validateSearchText(search)
 
         val resultSucess = Pair(false, R.string.info_you_need_search)
 
-        assertEquals(resultSucess,result)
+        assertEquals(resultSucess, result)
     }
 
     @Test
-    fun whenSmallerThenThree(){
+    fun whenSmallerThenThree() {
         val search = "fo"
         val result = Validator.validateSearchText(search)
 
         val resultSucess = Pair(false, R.string.info_min_search_characters)
 
-        assertEquals(resultSucess,result)
+        assertEquals(resultSucess, result)
     }
 
     @Test
-    fun whenStringCorrectSize(){
+    fun whenStringCorrectSize() {
         val search = "food"
         val result = Validator.validateSearchText(search)
 
@@ -42,7 +42,7 @@ class ValidatorTest{
     }
 
     @Test
-    fun whenSearchStringIsReallyBig(){
+    fun whenSearchStringIsReallyBig() {
         val search = "When Chuck Norris played Chopped from Food Network, he finished " +
                 "his food in 1 millisecond, and instantly wins every dish. You " +
                 "didn't see him play because the episode is secret."
@@ -54,12 +54,12 @@ class ValidatorTest{
     }
 
     @Test
-    fun whenHaveSymbols(){
+    fun whenHaveSymbols() {
         val search = "[]/~.,"
         val result = Validator.validateSearchText(search)
 
         val resultSucess = Pair(false, R.string.info_no_symbols)
 
-        assertEquals(resultSucess,result)
+        assertEquals(resultSucess, result)
     }
 }
