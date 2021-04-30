@@ -8,20 +8,4 @@ data class Fact(
     val updated_at: String,
     val url: String,
     val value: String,
-) {
-    val isLongText: Boolean
-        get() {
-            if (value.count() > 80) {
-                return true
-            }
-            return false
-        }
-
-    val getCategory: String
-        get() {
-            if (categories.isEmpty()) {
-                return "UNCATEGORIZED"
-            }
-            return categories.toString().replace("[\\[\\]]".toRegex(), "")
-        }
-}
+)
