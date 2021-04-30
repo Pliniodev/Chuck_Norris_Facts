@@ -41,7 +41,7 @@ class FactsAdapter(
         updateList()
     }
 
-    fun updateList(){
+    fun updateList() {
         notifyDataSetChanged()
     }
 
@@ -57,21 +57,28 @@ class FactsAdapter(
         private val imageShare: ImageView = itemView.findViewById(R.id.image_share)
 
         fun bindView(fact: Fact) {
-
-
-            if (fact.isLongText) {
+            if (isLongText(fact.value)) {
                 textValue.setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,
                     context.resources.getDimension(R.dimen.item_recyclerview_fontsize_18sp)
                 )
             }
             textValue.text = fact.value
-            textCategory.text = fact.getCategory
+            textCategory.text = formattedCategory(fact.categories)
             imageShare.setOnClickListener {
                 mListener.onClickShareImage(fact.url)
             }
         }
     }
 
+    fun formattedCategory(categories: ArrayList<String>): String {
+        if (categories.isEmpty()) {
+            return "UNCATEGORIZED"
+        }
+        return categories.toString().replace("[\\[\\]]".toRegex(), "")
+    }
 
+    fun isLongText(value: String): Boolean {
+        return (value.length > 80)
+    }
 }

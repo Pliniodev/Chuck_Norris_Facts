@@ -36,6 +36,7 @@ class MainViewModelTest {
 
     private lateinit var facts: List<Fact>
 
+
     @Before
     fun setUp() {
         facts = listOf(

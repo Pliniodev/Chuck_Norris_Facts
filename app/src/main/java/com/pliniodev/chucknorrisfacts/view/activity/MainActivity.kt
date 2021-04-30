@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity() {
         mAdapter.attachListener(mListener)
     }
 
-    private fun checkConnection(){
-        if (isOnline(this)){
+    private fun checkConnection() {
+        if (isOnline(this)) {
             checkBundle()
         } else {
             showAlert(R.string.error_lost_connection)
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if(isOnline(this)){
+        if (isOnline(this)) {
             checkBundle()
         } else {
             showAlert(R.string.error_lost_connection)
@@ -103,7 +103,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -192,7 +191,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAlert(errorMsg: Int) {
-
         AlertDialog.Builder(this)
             .setTitle(R.string.error_alert)
             .setMessage(errorMsg)

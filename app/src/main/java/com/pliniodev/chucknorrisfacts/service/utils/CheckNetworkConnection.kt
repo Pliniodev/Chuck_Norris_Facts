@@ -3,7 +3,6 @@ package com.pliniodev.chucknorrisfacts.service.utils
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import com.pliniodev.chucknorrisfacts.R
 
 object CheckNetworkConnection {
     /**

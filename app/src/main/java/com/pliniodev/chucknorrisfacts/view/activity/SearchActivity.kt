@@ -159,7 +159,6 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         isSearchByRandom: Boolean,
         isSearchByCategory: Boolean
     ) {
-
         val intent = Intent(this, MainActivity::class.java)
 
         val bundle = Bundle()
@@ -178,8 +177,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun showAlert(errorMsg: Int) {
-
-       AlertDialog.Builder(this)
+        AlertDialog.Builder(this)
             .setTitle(R.string.error_alert)
             .setMessage(errorMsg)
             .setPositiveButton(R.string.action_try_again) { _, _ ->
@@ -187,5 +185,4 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
             }
             .show()
     }
-
 }

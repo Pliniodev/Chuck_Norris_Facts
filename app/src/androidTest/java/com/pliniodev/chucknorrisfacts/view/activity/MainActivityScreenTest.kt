@@ -17,12 +17,9 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import androidx.test.platform.app.InstrumentationRegistry
 import com.pliniodev.chucknorrisfacts.R
 import com.pliniodev.chucknorrisfacts.constants.Constants
 import org.hamcrest.Matcher
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -78,7 +75,7 @@ class MainActivityScreenTest {
 
     @Test
     fun shouldShowRandomJokeOnRecycler_whenReceivedBundleToRandomSearch() {
-        startWithBundle(searchString = null, isRandom = true,isCategory = false)
+        startWithBundle(searchString = null, isRandom = true, isCategory = false)
         Thread.sleep(2000)
 
         onView(withId(R.id.text_value)).check(matches(isDisplayed()))
@@ -88,7 +85,7 @@ class MainActivityScreenTest {
 
     @Test
     fun shouldShowRandomJokeOnRecycler_whenReceivedBundleToRandomSearchByCategory() {
-        startWithBundle(searchString = "food", isRandom = false,isCategory = true)
+        startWithBundle(searchString = "food", isRandom = false, isCategory = true)
         Thread.sleep(2000)
 
         onView(withId(R.id.text_value)).check(matches(isDisplayed()))
@@ -99,7 +96,7 @@ class MainActivityScreenTest {
 
     @Test
     fun shouldShowRecyclerView_whenReceivedBundleToSearchFree() {
-        startWithBundle(searchString = "food", isRandom = false,isCategory = false)
+        startWithBundle(searchString = "food", isRandom = false, isCategory = false)
         Thread.sleep(2000)
 
         onView(withId(R.id.facts_recycler)).check(matches(isDisplayed()))
