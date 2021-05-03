@@ -8,7 +8,7 @@ import com.pliniodev.chucknorrisfacts.constants.Constants
 import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepository
 import com.pliniodev.chucknorrisfacts.service.utils.FactsResult.*
 import com.pliniodev.chucknorrisfacts.service.utils.Validator.validateSearchText
-import com.pliniodev.chucknorrisfacts.service.utils.onError
+import com.pliniodev.chucknorrisfacts.service.utils.onApiError
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
@@ -33,7 +33,7 @@ class SearchViewModel(
                     errorListMsgLiveData.postValue(Pair(Constants.SUCCESS, null))
                 }
                 is ApiError -> {
-                    errorListMsgLiveData.postValue(onError(result.statusCode))
+                    errorListMsgLiveData.postValue(onApiError(result.statusCode))
                 }
                 is ConnectionError -> {
                     errorListMsgLiveData.postValue(
@@ -55,29 +55,3 @@ class SearchViewModel(
         }
     }
 }
-
-
-//    fun getListCategories() {
-//
-//        viewModelScope.launch {
-//            repository.getCategoriesList() { result: FactsResult<List<String>> ->
-//                when (result) {
-//                    is FactsResult.Success -> {
-//                        listCategoryLiveData.postValue(result.successData)
-//                        errorListMsgLiveData.postValue(Pair(Constants.SUCCESS, null))
-//                    }
-//                    is FactsResult.ApiError -> {
-//                        errorListMsgLiveData.postValue(onError(result.statusCode))
-//                    }
-//                    is FactsResult.ConnectionError ->
-//                        errorListMsgLiveData.postValue(Pair(Constants.RESULT_ERROR,
-//                            R.string.error_lost_connection)
-//                    )
-//                    is FactsResult.ServerError ->
-//                        errorListMsgLiveData.postValue(Pair(Constants.RESULT_ERROR,
-//                            R.string.error_server))
-//                }
-//            }
-//        }
-//    }
-
