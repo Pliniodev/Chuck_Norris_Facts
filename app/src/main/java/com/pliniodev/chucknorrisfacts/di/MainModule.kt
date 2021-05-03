@@ -18,7 +18,6 @@ val remoteModule = module {
 }
 
 val repositoryModule = module {
-
     single<ChuckNorrisRepository> { ChuckNorrisRepositoryImpl(get()) }
 }
 
