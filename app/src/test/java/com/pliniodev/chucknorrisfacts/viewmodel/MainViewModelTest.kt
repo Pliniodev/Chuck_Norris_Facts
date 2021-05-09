@@ -27,7 +27,7 @@ class MainViewModelTest {
     val coroutineTestRule = CoroutineTestRule()
 
     @Mock
-    private lateinit var searchResultLiveDataObserver: Observer<List<Fact>>
+    private lateinit var searchResultLiveDataObserver: Observer<List<Fact>?>
 
     @Mock
     private lateinit var viewFlipperLiveDataObserver: Observer<Pair<Int, Int?>>

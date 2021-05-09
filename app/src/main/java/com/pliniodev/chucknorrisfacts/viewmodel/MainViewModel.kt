@@ -19,7 +19,7 @@ class MainViewModel(
     private val repository: ChuckNorrisRepository
 ) : ViewModel() {
 
-    val searchResultLiveData = MutableLiveData<List<Fact>>()
+    val searchResultLiveData = MutableLiveData<List<Fact>?>()
 
     val viewFlipperLiveData = MutableLiveData<Pair<Int, Int?>>()
 
@@ -67,7 +67,7 @@ class MainViewModel(
                 )
             )
         } else {
-            searchResultLiveData.postValue(result.successData!!)
+            searchResultLiveData.postValue(result.successData)
             viewFlipperLiveData.postValue(Pair(Constants.VIEW_FLIPPER_FACTS, null))
         }
     }
