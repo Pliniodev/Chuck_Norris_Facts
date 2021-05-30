@@ -1,6 +1,6 @@
 package com.pliniodev.chucknorrisfacts.di
 
-import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisApi
+import com.pliniodev.chucknorrisfacts.data.api.ChuckNorrisApi
 import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepository
 import com.pliniodev.chucknorrisfacts.service.repository.ChuckNorrisRepositoryImpl
 import com.pliniodev.chucknorrisfacts.service.retrofit.createApi

@@ -4,10 +4,9 @@ import com.pliniodev.chucknorrisfacts.R
 import com.pliniodev.chucknorrisfacts.constants.Constants
 
 /**
- * o código de erro 400 já está sendo impedido pela validação feita no editSearch
- * seria portanto um tratamento de erro desnecessário
+ * Neste app o código de erro 400 já está sendo impedido pela validação feita no editSearch
+ * seria portanto um tratamento de erro desnecessário.
  */
-
 
 fun onApiError(result: Int): Pair<Int, Int> {
     return when (result) {

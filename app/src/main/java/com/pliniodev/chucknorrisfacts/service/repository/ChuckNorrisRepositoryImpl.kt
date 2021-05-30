@@ -1,5 +1,6 @@
 package com.pliniodev.chucknorrisfacts.service.repository
 
+import com.pliniodev.chucknorrisfacts.data.api.ChuckNorrisApi
 import com.pliniodev.chucknorrisfacts.service.extension.toCategoriesList
 import com.pliniodev.chucknorrisfacts.service.extension.toFact
 import com.pliniodev.chucknorrisfacts.service.extension.toFactsList

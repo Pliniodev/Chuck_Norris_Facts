@@ -1,4 +1,4 @@
-package com.pliniodev.chucknorrisfacts.app
+package com.pliniodev.chucknorrisfacts.di
 
 import android.app.Application
 import com.pliniodev.chucknorrisfacts.di.*

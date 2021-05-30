@@ -6,8 +6,8 @@ import com.pliniodev.chucknorrisfacts.service.model.Fact
 import retrofit2.Response
 
 /**
+ * Esta classe transforma os objetos da camada DATA para DOMAIN
  * Adição de funçães estendidas para ajudar nos testes e separação de responsabilidades.
- * Aqui foram adicionadas funções estendidas que serão utilizadas em Responses diferentes.
  */
 
 fun Response<FactBodyResponse>.toFactsList(): List<Fact> {
