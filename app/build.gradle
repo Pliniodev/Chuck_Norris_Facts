@@ -116,7 +116,7 @@ dependencies {
     androidTestImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     androidTestImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.4.32"
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-//    androidTestImplementation 'android.arch.core:core-testing:2.1.0'
+    androidTestImplementation 'android.arch.core:core-testing:2.1.0'
 
     //espresso
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

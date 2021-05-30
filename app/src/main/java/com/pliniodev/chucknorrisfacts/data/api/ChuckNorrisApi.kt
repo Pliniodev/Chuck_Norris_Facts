@@ -1,4 +1,4 @@
-package com.pliniodev.chucknorrisfacts.service.repository
+package com.pliniodev.chucknorrisfacts.data.api
 
 import com.pliniodev.chucknorrisfacts.data.response.FactBodyResponse
 import com.pliniodev.chucknorrisfacts.data.response.FactDetailsResponse
